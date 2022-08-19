@@ -1,22 +1,21 @@
-import {
-  createStyles,
-  Header,
-  Autocomplete,
-  Group,
-  Burger,
-} from "@mantine/core";
+import { createStyles, Header, Autocomplete, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   header: {
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
+    flexGrow: 1,
+    display: "flex",
+    width: "100%",
   },
 
   inner: {
     height: 56,
     display: "flex",
-    justifyContent: "space-between",
+    width: "100%",
+    flexGrow: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
 
@@ -58,13 +57,14 @@ interface HeaderSearchProps {
   links?: { link: string; label: string }[];
 }
 
-export function HeaderSearch({ links }: HeaderSearchProps) {
+const HeaderSearch = ({ links }: HeaderSearchProps) => {
   const { classes } = useStyles();
 
   return (
     <Header height={56} className={classes.header} mb={120}>
       <div className={classes.inner}>
         <Group>
+          <div>NEdu</div>
           <Autocomplete
             className={classes.search}
             placeholder="Search"
@@ -82,4 +82,6 @@ export function HeaderSearch({ links }: HeaderSearchProps) {
       </div>
     </Header>
   );
-}
+};
+
+export default HeaderSearch;

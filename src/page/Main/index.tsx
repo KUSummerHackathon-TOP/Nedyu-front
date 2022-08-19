@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Carousel } from "@mantine/carousel";
-import { HeaderSearch } from "../../common/header";
+import HeaderSearch from "../../common/header";
 import { articleT } from "../../types/type";
 import thumbnail from "../../assets/thumbnail.jpeg";
 
