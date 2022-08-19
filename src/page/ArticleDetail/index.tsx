@@ -1,7 +1,12 @@
 import React from "react";
-
+import HeaderSearch from "../../common/header";
 const ArticleDetail = () => {
-  return <div>ArticleDetail</div>;
+  return (
+    <div>
+      <HeaderSearch />
+      ArticleDetail
+    </div>
+  );
 };
 
 export default ArticleDetail;
