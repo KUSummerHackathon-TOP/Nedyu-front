@@ -4,8 +4,7 @@ import { Carousel } from "@mantine/carousel";
 
 const Main = () => {
   return (
-    <>
-      <div>Main</div>
+    <Wrapper>
       <Carousel
         withIndicators
         //sx={{ maxWidth: 300 }}
@@ -17,7 +16,9 @@ const Main = () => {
         slidesToScroll={3}
       >
         <Carousel.Slide>
-          <ArticleItem>News 1</ArticleItem>
+          <ArticleItem>
+            <span className="title">Levy takes Whitebread novel prize</span>
+          </ArticleItem>
         </Carousel.Slide>
         <Carousel.Slide>
           <ArticleItem>News 2</ArticleItem>
@@ -29,15 +30,32 @@ const Main = () => {
           <ArticleItem>News 4</ArticleItem>
         </Carousel.Slide>
       </Carousel>
-    </>
+    </Wrapper>
   );
 };
 
 export default Main;
 
-const ArticleItem = styled.div`
-  width: 200px;
-  height: 200px;
+const Wrapper = styled.div`
+  width: 100%;
+`;
+
+const ArticleItem = styled.div<{ url?: string }>`
+  width: 330px;
+  height: 328px;
   background: black;
+  border-radius: 30px;
   color: white;
+
+  .title {
+    position: absolute;
+    left: 24px;
+    top: 147px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: white;
+  }
 `;
