@@ -1,19 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { Carousel } from "@mantine/carousel";
-
+import { HeaderSearch } from "../../common/header";
 const Main = () => {
   return (
     <Wrapper>
+      <HeaderSearch />
       <Carousel
         withIndicators
         //sx={{ maxWidth: 300 }}
-        slideSize="33.333333%"
+        slideSize="25%"
         slideGap="md"
         loop
         align="start"
         mx="auto"
-        slidesToScroll={3}
+        slidesToScroll={4}
       >
         <Carousel.Slide>
           <ArticleItem>
