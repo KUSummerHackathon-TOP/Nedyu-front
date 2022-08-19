@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Carousel } from "@mantine/carousel";
-
+import { HeaderSearch } from "../../common/header";
 const Main = () => {
   return (
     <>
+      <HeaderSearch />
       <div>Main</div>
       <Carousel
         withIndicators
