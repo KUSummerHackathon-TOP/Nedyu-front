@@ -4,7 +4,7 @@ import { Carousel } from "@mantine/carousel";
 import { articleT } from "../../types/type";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import { useNavigate } from "react-router-dom";
-
+// ! axios로 변경
 const MockData: articleT[] = [
   {
     id: "1",
