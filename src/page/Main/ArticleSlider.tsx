@@ -35,25 +35,27 @@ const ArticleSlider = () => {
     console.log("loading articles...");
   }, []);
   const onClickArticle = (id: number) => {
-    navigate(`/articledetail/${id}`);
+    const userToken = window.localStorage.getItem("token");
+    if (userToken) navigate(`/articledetail/${id}`);
+    else navigate("/signin");
   };
   return (
     <Wrapper>
       {newslist.length > 0 && (
         <Carousel
           withIndicators
-          sx={{ maxWidth: "100%" }}
-          slideSize="30%"
-          //slideGap="md"
+          //sx={{ maxWidth: "100%" }}
+          slideSize="33%"
+          height={400}
+          slideGap="xs"
           loop
           align="start"
-          mx="auto"
           slidesToScroll={3}
           controlsOffset="xl"
           style={{ marginTop: "64px", marginLeft: "100px" }}
         >
           {newslist?.map((article, idx) => {
-            if (idx > 5) return;
+            if (idx > 8) return;
             console.log("article", article);
             return (
               <>
@@ -83,6 +85,7 @@ export default ArticleSlider;
 
 const Wrapper = styled.div`
   padding-bottom: 100px;
+  width: 100vw;
 `;
 
 const ArticleItem = styled.div<{ url?: string }>`

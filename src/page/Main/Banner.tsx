@@ -54,7 +54,7 @@ const Banner = () => {
         Nedyu랑 공부하면서 쉽고 재미있게 세상의 이야기에 관심을 가져봅시다.
       </SubTitle>
       {userToken ? (
-        <div>dfdfdfd</div>
+        <></>
       ) : (
         <div>
           <Input
