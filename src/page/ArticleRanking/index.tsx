@@ -40,11 +40,9 @@ const ArticleRanking = () => {
 export default ArticleRanking;
 
 const RankerItemWrapper = styled.div`
-  position: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
+  position: absolute;
   top: 200px;
+  left: calc(50% - 400px);
   padding-bottom: 200px;
 `;
 
@@ -58,5 +56,4 @@ const Title = styled.div`
   text-align: center;
   color: #00110f;
   text-align: center;
-  margin-bottom: 100px;
 `;
