@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 
-export const useScrollFadeIn = () => {
+const useScrollFadeIn = () => {
   const dom = useRef();
 
   const handleScroll = useCallback(([entry]: any) => {
