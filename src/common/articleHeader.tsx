@@ -14,7 +14,7 @@ const ArticleHeader = ({ isShow, title }: ArticleHeaderProps) => {
 };
 
 const ArticleHeaderContainer = styled.div<{ isShow: boolean }>`
-  position: absolute;
+  position: fixed;
   width: 1440px;
   height: 101px;
   left: 0px;

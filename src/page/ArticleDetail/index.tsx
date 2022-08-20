@@ -44,9 +44,9 @@ const ArticleDetail = () => {
   return (
     <div>
       <HeaderSearch />
-      <ArticleHeader isShow={!scroll} title={Article.title} />
+      <ArticleHeader isShow={scroll} title={Article.title} />
       <ArticleContent>
-        <HeadLine isShow={scroll} url={Article.thumbnail}>
+        <HeadLine isShow={!scroll} url={Article.thumbnail}>
           <div className="company">{Article.company}</div>
           <div className="title">{Article.title}</div>
           <div className="date">{Article.date}</div>
