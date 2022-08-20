@@ -21,8 +21,6 @@ const ArticleHeader = ({ isShow, title }: ArticleHeaderProps) => {
   const rootHeight = root ? root.offsetHeight : 0;
 
   const { y } = useScroll();
-  console.log(rootHeight);
-  console.log(y);
   return (
     <ArticleHeaderContainer isShow={isShow} progress={(y / rootHeight) * 100}>
       <div className="progress-bar"></div>

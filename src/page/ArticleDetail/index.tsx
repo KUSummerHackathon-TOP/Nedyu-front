@@ -121,19 +121,18 @@ const ArticleDetail = () => {
     }
   };
 
-  const summarySubmit = (id: string, content: string) => {
+  const summarySubmit = (id: number, content: string) => {
     // ! type 변경
     let score: number = 80;
     axios
-      .post("/api/v1/article/evaluate/{id}", {
-        userid: "1",
-        articleid: id,
-        content: content,
+      .post(`/api/v1/article/evaluate/`, {
+        article_id: id,
+        summary: content,
       })
       .then((res) => {
-        console.log(res.score);
+        console.log("Score", res);
 
-        score = res.score;
+        score = res.data.score;
       })
       .catch((err) => {
         console.log(err);
@@ -184,7 +183,7 @@ const ArticleDetail = () => {
               <SubmitBtn
                 onClick={() =>
                   summarySubmit(
-                    params.id,
+                    Number(params.id),
                     document.getElementById("summarySubmit")
                   )
                 }
