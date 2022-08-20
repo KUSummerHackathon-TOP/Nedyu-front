@@ -65,6 +65,7 @@ export default Banner;
 
 const Wrapper = styled.div`
   position: relative;
+  margin-top: 100px;
   width: 100%;
   height: 424px;
   background: #ffd751;
