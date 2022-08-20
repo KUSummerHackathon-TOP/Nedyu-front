@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import HeaderSearch from "../../common/header";
+import Header from "../../common/Header";
 import Banner from "./Banner";
 import ArticleSlider from "./ArticleSlider";
 
 const Main = () => {
   return (
     <Wrapper>
-      <HeaderSearch />
+      <Header />
       <Banner />
       <ArticleSlider />
     </Wrapper>

@@ -3,8 +3,10 @@ import styled from "styled-components";
 import InputForm from "./InputForm";
 import Header from "./Header";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -27,6 +29,10 @@ const Signup = () => {
       })
       .then((res) => {
         console.log("res", res);
+        if (res.status === 201) {
+          console.log("회원가입 성공");
+          navigate("/");
+        }
       })
       .catch((e) => {
         console.log("e", e);

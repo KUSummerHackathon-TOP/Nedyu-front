@@ -1,5 +1,5 @@
 import react, { useEffect, useState, useRef } from "react";
-import HeaderSearch from "../../common/header";
+import Header from "../../common/Header";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
@@ -169,7 +169,7 @@ const ArticleDetail = () => {
         <Loading />
       ) : (
         <Wrapper>
-          <HeaderSearch />
+          <Header />
           <ArticleHeader isShow={scroll} title={Article.title} />
           <ArticleContent>
             <HeadLine isShow={!scroll} url={Article.thumbnail}>

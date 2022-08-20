@@ -36,10 +36,10 @@ const ArticleHeaderContainer = styled.div<{
 }>`
   position: fixed;
   width: 1440px;
-  height: 101px;
+  height: 70px;
   left: 0px;
   top: 0px;
-  margin-top: 50px;
+  margin-top: 80px;
   background: white;
   .basic-background {
     background: white;
@@ -60,7 +60,7 @@ const ArticleHeaderContainer = styled.div<{
     width: 559px;
     height: 39px;
     left: 441px;
-    top: 31px;
+    top: 15px;
     z-index: 10;
 
     font-family: "Montserrat";
