@@ -21,6 +21,7 @@ const ArticleHeaderContainer = styled.div<{ isShow: boolean }>`
   top: 0px;
 
   margin-top: 50px;
+  z-index: 10;
 
   background: #ffd751;
   opacity: 0;
