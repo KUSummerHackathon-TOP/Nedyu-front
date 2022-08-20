@@ -49,12 +49,9 @@ const ArticleDetail = () => {
 
   const summarySubmit = (content: string) => {
     setIsLoading(true);
-    axios
-      .post('/api/v1/article/evaluate/{id}')
-      .then( res => {
-        const score = res.score
-      })
-    if()
+    axios.post("/api/v1/article/evaluate/{id}").then((res) => {
+      const score: number = res.score;
+    });
     navigate("/score");
   };
 
