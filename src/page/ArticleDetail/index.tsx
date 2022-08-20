@@ -139,7 +139,7 @@ const ArticleDetail = () => {
         },
         {
           headers: {
-            Authorization: user.token,
+            Authorization: `Bearer ${user.token}`,
           },
         }
       )
