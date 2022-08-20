@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ArticleSlider from "../Main/ArticleSlider";
 
 const UserInfo = () => {
   return (
@@ -18,12 +19,14 @@ const UserInfo = () => {
 
 export default UserInfo;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  position: absolute;
+  top: 200px;
+`;
 
 const Content = styled.div`
-  position: absolute;
-  top: 140px;
-  left: 400px;
+  margin-top: 0px;
+  margin-left: 400px;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
@@ -34,9 +37,8 @@ const Content = styled.div`
 `;
 
 const UserName = styled.div`
-  position: absolute;
-  top: 180px;
-  left: 400px;
+  margin-top: 20px;
+  margin-left: 400px;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -47,9 +49,8 @@ const UserName = styled.div`
 `;
 
 const UserEmail = styled.div`
-  position: absolute;
-  top: 220px;
-  left: 400px;
+  margin-top: 10px;
+  margin-left: 400px;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
@@ -59,9 +60,8 @@ const UserEmail = styled.div`
 `;
 
 const UserHistory = styled.div`
-  position: absolute;
-  top: 300px;
-  left: calc(50% - 340px);
+  margin-top: 50px;
+  margin-left: 50%;
   width: 681px;
   height: 89px;
   background: #ffffe2;
