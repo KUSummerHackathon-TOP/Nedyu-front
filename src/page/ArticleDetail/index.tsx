@@ -3,8 +3,9 @@ import HeaderSearch from "../../common/header";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
+import { useParams } from "react-router-dom";
 interface Mockdata {
-  id: number;
+  id: string;
   title: string;
   company: string;
   date: string;
@@ -12,7 +13,7 @@ interface Mockdata {
   content: string;
 }
 const Article: Mockdata = {
-  id: 1,
+  id: "1",
   title: "Levy takes Whitebread novel prize",
   company: "BBC News",
   date: "2005.01.05",
@@ -22,6 +23,7 @@ const Article: Mockdata = {
 };
 const ArticleDetail = () => {
   const [scroll, setScroll] = useState(false);
+  let params = useParams();
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -47,6 +49,7 @@ const ArticleDetail = () => {
       <ArticleHeader isShow={scroll} title={Article.title} />
       <ArticleContent>
         <HeadLine isShow={!scroll} url={Article.thumbnail}>
+          <div className="idd">{params.id}</div>
           <div className="company">{Article.company}</div>
           <div className="title">{Article.title}</div>
           <div className="date">{Article.date}</div>
@@ -85,6 +88,16 @@ const HeadLine = styled.div<{ url?: string; isShow: boolean }>`
   opacity: 0;
 
   ${({ isShow }) => isShow && "opacity: 1"};
+
+  .idd {
+    color: white;
+    padding: 120px 263px 0px 263px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+  }
 
   .company {
     color: white;

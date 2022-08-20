@@ -1,6 +1,6 @@
 import { createStyles, Header, Autocomplete, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-
+import { useNavigate } from "react-router-dom";
 const useStyles = createStyles((theme) => ({
   header: {
     position: "fixed",
@@ -61,12 +61,18 @@ interface HeaderSearchProps {
 
 const HeaderSearch = ({ links }: HeaderSearchProps) => {
   const { classes } = useStyles();
+  const navigate = useNavigate();
+
+  const onClickHome = () => {
+    navigate("/");
+  };
 
   return (
     <Header height={56} className={classes.header} mb={120}>
       <div className={classes.inner}>
         <Group>
           <div
+            onClick={onClickHome}
             style={{
               fontWeight: 700,
               fontSize: "40px",
