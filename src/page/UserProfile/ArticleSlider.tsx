@@ -9,35 +9,31 @@ const MockData: articleT[] = [
   {
     id: "1",
     title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
+    companyName: "BBC News",
     thumbnail: thumbnail,
-    content:
+    articleShortContent:
       "Orange Prize winner Andrea Levy has seen her book Small Island win the Whitbread Novel of the Year Award.She is now favourite to win the overall prize after beating Booker winner Alan Hollinghurst's The Line of Beauty.",
   },
   {
     id: "1",
     title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
+    companyName: "BBC News",
     thumbnail: thumbnail,
-    content: "",
+    articleShortContent: "",
   },
   {
     id: "1",
     title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
+    companyName: "BBC News",
     thumbnail: thumbnail,
-    content: "",
+    articleShortContent: "",
   },
   {
     id: "1",
     title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
+    companyName: "BBC News",
     thumbnail: thumbnail,
-    content: "",
+    articleShortContent: "",
   },
 ];
 
@@ -49,6 +45,9 @@ const ArticleSlider = () => {
   };
   return (
     <Wrapper>
+      <Title>
+        <span style={{ fontWeight: 700 }}>Nedyu12</span>님이 요약한 뉴스들
+      </Title>
       <Carousel
         withIndicators
         sx={{ maxWidth: "100%" }}
@@ -59,7 +58,6 @@ const ArticleSlider = () => {
         mx="auto"
         slidesToScroll={3}
         controlsOffset="xl"
-        style={{ marginTop: "64px", marginLeft: "100px" }}
       >
         {MockData.map((aritcle: articleT) => {
           return (
@@ -73,9 +71,8 @@ const ArticleSlider = () => {
                 >
                   <div className="overlay" />
                   <span className="title">{aritcle.title}</span>
-                  <span className="company">{aritcle.company}</span>
-                  <span className="date">{aritcle.date}</span>
-                  <span className="content">{aritcle.content}</span>
+                  <span className="company">{aritcle.companyName}</span>
+                  <span className="content">{aritcle.articleShortContent}</span>
                 </ArticleItem>
               </Carousel.Slide>
             </>
@@ -89,7 +86,21 @@ const ArticleSlider = () => {
 export default ArticleSlider;
 
 const Wrapper = styled.div`
+  position: absolute;
+  left: 120px;
+  top: 600px;
   padding-bottom: 100px;
+`;
+
+const Title = styled.div`
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #00110f;
+  margin-bottom: 50px;
 `;
 
 const ArticleItem = styled.div<{ url?: string }>`

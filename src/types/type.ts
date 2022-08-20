@@ -3,7 +3,7 @@ export type articleT = {
   title: string;
   articleShortContent: string;
   thumbnail: string;
-  reportName: string;
+  reportName?: string;
   companyName?: string;
 };
 
