@@ -23,8 +23,8 @@ const ArticleRanking = () => {
   return (
     <>
       <RankingHeader />
-      <Title>방금 내가 읽은 뉴스, Nedyu에서 가장 요약을 잘한 사람들!</Title>
       <RankerItemWrapper>
+        <Title>방금 내가 읽은 뉴스, Nedyu에서 가장 요약을 잘한 사람들!</Title>
         {MockData.map((ranker: articleRankerT, idx) => {
           return <RankingItem ranker={ranker} rank={idx + 1} />;
         })}
@@ -40,9 +40,11 @@ const ArticleRanking = () => {
 export default ArticleRanking;
 
 const RankerItemWrapper = styled.div`
-  position: absolute;
+  position: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
   top: 200px;
-  left: calc(50% - 400px);
   padding-bottom: 200px;
 `;
 
@@ -56,4 +58,5 @@ const Title = styled.div`
   text-align: center;
   color: #00110f;
   text-align: center;
+  margin-bottom: 100px;
 `;

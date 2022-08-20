@@ -45,7 +45,7 @@ const ArticleSlider = () => {
   const navigate = useNavigate();
 
   const onClickArticle = (id: string) => {
-    navigate(`/newsdetail/${id}`);
+    navigate(`/articledetail/${id}`);
   };
   return (
     <Carousel
