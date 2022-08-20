@@ -1,50 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Carousel } from "@mantine/carousel";
-import { articleT } from "../../types/type";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import { useNavigate } from "react-router-dom";
-
-const MockData: articleT[] = [
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content:
-      "Orange Prize winner Andrea Levy has seen her book Small Island win the Whitbread Novel of the Year Award.She is now favourite to win the overall prize after beating Booker winner Alan Hollinghurst's The Line of Beauty.",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content: "",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content: "",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content: "",
-  },
-];
+import axios from "axios";
+import userDTStore from "../../store/userStore";
+import { newsT } from "../../types/type";
 
 const ArticleSlider = () => {
   const navigate = useNavigate();
+  const { user } = userDTStore();
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const accessToken = user?.token;
+  const [newslist, setNewslist] = useState<newsT[]>();
 
-  const onClickArticle = (id: string) => {
+  const load_articles = async () => {
+    await axios
+      .get("/api/v1/article/article-lists", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        console.log("res", res.data);
+        setNewslist(res.data);
+      })
+      .catch((e) => {
+        console.log("e", e);
+      });
+  };
+  useEffect(() => {
+    load_articles();
+    console.log("loading articles...");
+  }, []);
+  const onClickArticle = (id: number) => {
     navigate(`/articledetail/${id}`);
   };
   return (
@@ -61,21 +50,21 @@ const ArticleSlider = () => {
         controlsOffset="xl"
         style={{ marginTop: "64px", marginLeft: "100px" }}
       >
-        {MockData.map((aritcle: articleT) => {
+        {newslist?.map((article) => {
+          console.log("article", article);
           return (
             <>
               <Carousel.Slide>
                 <ArticleItem
                   onClick={() => {
-                    onClickArticle(aritcle.id);
+                    onClickArticle(Number(article.id));
                   }}
-                  url={aritcle.thumbnail}
+                  url={article.thumbnail}
                 >
                   <div className="overlay" />
-                  <span className="title">{aritcle.title}</span>
-                  <span className="company">{aritcle.company}</span>
-                  <span className="date">{aritcle.date}</span>
-                  <span className="content">{aritcle.content}</span>
+                  <span className="title">{article.title}</span>
+                  <span className="company">{article.companyName}</span>
+                  <span className="content">{article.content}</span>
                 </ArticleItem>
               </Carousel.Slide>
             </>

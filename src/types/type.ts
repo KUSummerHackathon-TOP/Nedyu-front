@@ -7,6 +7,15 @@ export type articleT = {
   companyName?: string;
 };
 
+export type newsT = {
+  id: string;
+  title: string;
+  content: string;
+  thumbnail: string;
+  reportName?: string;
+  companyName?: string;
+};
+
 export type articleRankerT = {
   name: string;
   score: number;
