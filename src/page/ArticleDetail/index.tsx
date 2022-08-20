@@ -3,7 +3,9 @@ import HeaderSearch from "../../common/header";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
+import Loading from "./Loading";
 import { useParams } from "react-router-dom";
+
 interface Mockdata {
   id: string;
   title: string;
@@ -23,6 +25,7 @@ const Article: Mockdata = {
 };
 const ArticleDetail = () => {
   const [scroll, setScroll] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   let params = useParams();
 
   useEffect(() => {
@@ -44,19 +47,25 @@ const ArticleDetail = () => {
   };
 
   return (
-    <div>
-      <HeaderSearch />
-      <ArticleHeader isShow={scroll} title={Article.title} />
-      <ArticleContent>
-        <HeadLine isShow={!scroll} url={Article.thumbnail}>
-          <div className="idd">{params.id}</div>
-          <div className="company">{Article.company}</div>
-          <div className="title">{Article.title}</div>
-          <div className="date">{Article.date}</div>
-        </HeadLine>
-        <div className="content">{Article.content}</div>
-      </ArticleContent>
-    </div>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <HeaderSearch />
+          <ArticleHeader isShow={scroll} title={Article.title} />
+          <ArticleContent>
+            <HeadLine isShow={!scroll} url={Article.thumbnail}>
+              <div className="idd">{params.id}</div>
+              <div className="company">{Article.company}</div>
+              <div className="title">{Article.title}</div>
+              <div className="date">{Article.date}</div>
+            </HeadLine>
+            <div className="content">{Article.content}</div>
+          </ArticleContent>
+        </>
+      )}
+    </>
   );
 };
 
