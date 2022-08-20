@@ -10,6 +10,7 @@ const Banner = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { user, setUserInfo } = userDTStore();
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const onSubmit = async () => {
     console.log(email, password);
@@ -30,6 +31,8 @@ const Banner = () => {
         updatedAt: res.data.user.updatedAt,
         token: res.data.token,
       });
+      if (res.data.token !== undefined) setIsLogin(true);
+      else setIsLogin(false);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -47,27 +50,33 @@ const Banner = () => {
         느껴지진 않으셨나요? {"\n"}
         Nedyu랑 공부하면서 쉽고 재미있게 세상의 이야기에 관심을 가져봅시다.
       </SubTitle>
-      <Input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="이메일 주소"
-        style={{ bottom: "100px" }}
-      />
-      <Input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="비밀번호"
-        style={{ bottom: "50px" }}
-      />
-      <LoginButton onClick={onSubmit}>로그인</LoginButton>
-      <Additional>다양한 뉴스 아티클을 확인하고 싶다면?</Additional>
-      <SignUpButton
-        onClick={() => {
-          navigate("/signup");
-        }}
-      >
-        회원가입
-      </SignUpButton>
+      {isLogin ? (
+        <div>dfdfdfd</div>
+      ) : (
+        <div>
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일 주소"
+            style={{ bottom: "100px" }}
+          />
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호"
+            style={{ bottom: "50px" }}
+          />
+          <LoginButton onClick={onSubmit}>로그인</LoginButton>
+          <Additional>다양한 뉴스 아티클을 확인하고 싶다면?</Additional>
+          <SignUpButton
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
+            회원가입
+          </SignUpButton>
+        </div>
+      )}
       <NestImg src={nest} />
     </Wrapper>
   );
@@ -146,7 +155,7 @@ const LoginButton = styled.button`
   color: white;
 `;
 
-const Additional = styled.span`
+const Additional = styled.div`
   position: absolute;
   left: 147px;
   bottom: 20px;
@@ -158,7 +167,7 @@ const Additional = styled.span`
 
 const SignUpButton = styled.div`
   position: absolute;
-  left: 370px;
+  left: 420px;
   bottom: 20px;
   font-style: normal;
   font-weight: 500;
