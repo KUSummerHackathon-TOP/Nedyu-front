@@ -3,6 +3,8 @@ import { useDisclosure } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   header: {
+    position: "fixed",
+    top: 0,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     flexGrow: 1,
