@@ -29,5 +29,5 @@
     "typescript": "^4.6.4",
     "vite": "^3.0.7"
   },
-  "proxy" : "https://5d91-1-220-133-58.jp.ngrok.io/docs"
+  "proxy": "https://5d91-1-220-133-58.jp.ngrok.io"
 }
