@@ -100,7 +100,7 @@ const Article: Mockdata = {
 const ArticleDetail = () => {
   const [scroll, setScroll] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  let params = useParams();
+  let params: any = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {

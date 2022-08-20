@@ -1,75 +1,51 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
+import { useForm } from "../../hooks";
 
-const SignUp = () => {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-
-  const onClickSubmit = async () => {
-    //회원가입 api 호출
-    if (password !== passwordConfirm) {
-      console.log("비밀번호 불일치");
-      //예외처리
-    }
-    try {
-      const requestBody = {
-        email,
-        password,
-        firstName,
-        lastName,
+const Signup = () => {
+  const { errors, touched, handleChange, handleBlur, handleSubmit } = useForm({
+    initialValues: { email: "", password: "" },
+    validate: (values: object) => {
+      const errors = {
+        email: "",
+        password: "",
       };
-      console.log("requestBody", requestBody);
-      const data = await axios.post("/api/v1/auth/email/register", requestBody);
-      console.log("data", data);
-    } catch (e) {
-      console.log("error", e);
-    }
-  };
+
+      if (!values.email) {
+        errors.email = "이메일을 입력하세요";
+      }
+      if (!values.password) {
+        errors.password = "비밀번호를 입력하세요";
+      }
+
+      return errors;
+    },
+    onSubmit: (values: object) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
-    <>
-      <Input
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        placeholder="First Name"
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="email"
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
       />
-      <Input
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        placeholder="Last Name"
+      {touched.email && errors.email && <span>{errors.email}</span>}
+
+      <input
+        type="password"
+        name="password"
+        value={values.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
       />
-      <Input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <Input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <Input
-        value={passwordConfirm}
-        onChange={(e) => setPasswordConfirm(e.target.value)}
-        placeholder="Password Confirm"
-      />
-      <Button onClick={onClickSubmit}>회원가입</Button>
-    </>
+      {touched.password && errors.password && <span>{errors.password}</span>}
+
+      <button type="submit">Login</button>
+    </form>
   );
 };
 
-export default SignUp;
-
-const Input = styled.input`
-  display: block;
-  margin-bottom: 10px;
-`;
-
-const Button = styled.button`
-  width: 100px;
-  height: 30px;
-`;
+export default Signup;
