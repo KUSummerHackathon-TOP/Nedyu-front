@@ -1,75 +1,54 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
+import { useForm } from "react-hook-form";
 
-const SignUp = () => {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-
-  const onClickSubmit = async () => {
-    //회원가입 api 호출
-    if (password !== passwordConfirm) {
-      console.log("비밀번호 불일치");
-      //예외처리
-    }
-    try {
-      const requestBody = {
-        email,
-        password,
-        firstName,
-        lastName,
-      };
-      console.log("requestBody", requestBody);
-      const data = await axios.post("/api/v1/auth/email/register", requestBody);
-      console.log("data", data);
-    } catch (e) {
-      console.log("error", e);
-    }
-  };
+function SignupForm({
+  onSubmit = async (data) => {
+    await new Promise((r) => setTimeout(r, 1000));
+    alert(JSON.stringify(data));
+  },
+}) {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, isDirty, errors },
+  } = useForm();
 
   return (
-    <>
-      <Input
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        placeholder="First Name"
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor="email">이메일</label>
+      <input
+        id="email"
+        type="text"
+        placeholder="test@email.com"
+        aria-invalid={!isDirty ? undefined : errors.email ? "true" : "false"}
+        {...register("email", {
+          required: "이메일은 필수 입력입니다.",
+          pattern: {
+            value: /\S+@\S+\.\S+/,
+            message: "이메일 형식에 맞지 않습니다.",
+          },
+        })}
       />
-      <Input
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        placeholder="Last Name"
+      {errors.email && <small role="alert">{errors.email.message}</small>}
+      <label htmlFor="password">비밀번호</label>
+      <input
+        id="password"
+        type="password"
+        placeholder="****************"
+        aria-invalid={!isDirty ? undefined : errors.password ? "true" : "false"}
+        {...register("password", {
+          required: "비밀번호는 필수 입력입니다.",
+          minLength: {
+            value: 8,
+            message: "8자리 이상 비밀번호를 사용하세요.",
+          },
+        })}
       />
-      <Input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <Input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <Input
-        value={passwordConfirm}
-        onChange={(e) => setPasswordConfirm(e.target.value)}
-        placeholder="Password Confirm"
-      />
-      <Button onClick={onClickSubmit}>회원가입</Button>
-    </>
+      {errors.password && <small role="alert">{errors.password.message}</small>}
+      <button type="submit" disabled={isSubmitting}>
+        로그인
+      </button>
+    </form>
   );
-};
+}
 
-export default SignUp;
-
-const Input = styled.input`
-  display: block;
-  margin-bottom: 10px;
-`;
-
-const Button = styled.button`
-  width: 100px;
-  height: 30px;
-`;
+export default SignupForm;

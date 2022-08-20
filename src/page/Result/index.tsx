@@ -10,7 +10,7 @@ const Result = () => {
   );
   const [showButton, setShowButton] = useState<boolean>(false);
 
-  const location = useLocation();
+  const location: any = useLocation();
   const { score } = location.state;
   console.log(score);
 
