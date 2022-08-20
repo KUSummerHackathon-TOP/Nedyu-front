@@ -5,28 +5,60 @@ import chicken from "../../assets/chicken.svg";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import BottomBar from "../../common/BottomBar";
+import ArticleList from "./ArticleList";
+import useArticleStore from "../../store/articleStore";
+import axios from "axios";
 
 const Result = () => {
+  const id = useParams().id;
+  const location: any = useLocation();
+  const { score } = location.state;
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6eyJpZCI6MSwibmFtZSI6IkFkbWluIiwiX19lbnRpdHkiOiJSb2xlIn0sImlhdCI6MTY2MDk3OTE4MiwiZXhwIjoxNjYxMDY1NTgyfQ.pL9Zx6Ed0NFgyRQUWzN-thDmzHt6cEEz1f7LlhXlIxs";
+  const { similarArticleList, setSimilarArticleList } = useArticleStore();
   const [bottomBarContent, setBottomBarContent] = useState<string>(
     "내 생각에 기사에서 누구나 꿈을 이룰 수 있다고 말하고 싶은 것 같아!"
   );
   const [showButton, setShowButton] = useState<boolean>(false);
-  const id = useParams().id;
-
-  const location: any = useLocation();
-  const { score } = location.state;
-  console.log(score);
+  const [showArticleList, setShowArticleList] = useState<boolean>(true);
 
   useEffect(() => {
     setTimeout(() => {
       setBottomBarContent("다음에 어떤 기사를 요약해 볼까요?");
       setShowButton(true);
     }, 3000);
+
+    setTimeout(() => {
+      axios
+        .get("/api/v1/article/article-lists/7", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          console.log("res", res);
+          setSimilarArticleList(res.data);
+        })
+        .catch((e) => {
+          console.log("e", e);
+        });
+    }, 8000);
   }, []);
+
+  useEffect(() => {
+    console.log("list", similarArticleList);
+  }, [similarArticleList]);
 
   return (
     <>
-      <TopBar>Levy takes Whitbread novel prize</TopBar>
+      <TopBar>
+        Levy takes Whitbread novel prize
+        {!showArticleList && (
+          <OpenArticleList onClick={() => setShowArticleList(true)}>
+            추천받기
+          </OpenArticleList>
+        )}
+      </TopBar>
       <SubTitle>네듀가 분석한 뉴스 요약문과 내 생각의 일치도는?</SubTitle>
       <QuestionMark>?</QuestionMark>
       <ScoreWrapperTop />
@@ -39,6 +71,13 @@ const Result = () => {
         isRankingButtonShow={showButton}
         articleId={id}
       />
+      {showArticleList && similarArticleList.length > 0 && (
+        <ArticleList
+          articleList={similarArticleList}
+          closeList={() => setShowArticleList(false)}
+        />
+      )}
+      {!showArticleList && <></>}
     </>
   );
 };
@@ -49,7 +88,7 @@ const TopBar = styled.div`
   display: flex;
   position: fixed;
   top: 0px;
-  height: 100px;
+  height: 80px;
   width: 100%;
   background: #ffd751;
   justify-content: center;
@@ -59,6 +98,7 @@ const TopBar = styled.div`
   font-style: normal;
   font-size: 28px;
   font-weight: 700;
+  border-bottom: 1px solid black;
 `;
 
 const QuestionMark = styled.span`
@@ -171,4 +211,15 @@ const ChickenCharacter = styled.img`
       right: 60px;
     }
   }
+`;
+
+const OpenArticleList = styled.div`
+  position: absolute;
+  right: 400px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 80px;
+  color: #ffffff;
+  cursor: pointer;
 `;

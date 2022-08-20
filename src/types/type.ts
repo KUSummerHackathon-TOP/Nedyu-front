@@ -1,10 +1,10 @@
 export type articleT = {
   id: string;
   title: string;
-  company: string;
-  date: string;
+  articleShortContent: string;
   thumbnail: string;
-  content: string;
+  reportName: string;
+  companyName?: string;
 };
 
 export type articleRankerT = {
