@@ -1,5 +1,5 @@
 import react, { useEffect, useState, useRef } from "react";
-import Header from "../../common/Header";
+import Header from "../../common/header";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";

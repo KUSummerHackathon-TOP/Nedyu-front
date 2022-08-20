@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import userDTStore from "../../store/userStore";
 import { useNavigate } from "react-router-dom";
+
 const Signin = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -28,6 +29,8 @@ const Signin = () => {
         updatedAt: res.data.user.updatedAt,
         token: res.data.token,
       });
+      const token = res.data.token;
+      window.localStorage.setItem("token", token);
       navigate("/");
     } catch (err) {
       console.log(err);

@@ -11,6 +11,7 @@ const Banner = () => {
   const [password, setPassword] = useState<string>("");
   const { user, setUserInfo } = userDTStore();
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const userToken = window.localStorage.getItem("token");
 
   const onSubmit = async () => {
     console.log(email, password);
@@ -34,6 +35,8 @@ const Banner = () => {
       if (res.data.token !== undefined) setIsLogin(true);
       else setIsLogin(false);
       navigate("/");
+      const token = res.data.token;
+      window.localStorage.setItem("token", token);
     } catch (err) {
       console.log(err);
     }
@@ -50,7 +53,7 @@ const Banner = () => {
         느껴지진 않으셨나요? {"\n"}
         Nedyu랑 공부하면서 쉽고 재미있게 세상의 이야기에 관심을 가져봅시다.
       </SubTitle>
-      {isLogin ? (
+      {userToken ? (
         <div>dfdfdfd</div>
       ) : (
         <div>
