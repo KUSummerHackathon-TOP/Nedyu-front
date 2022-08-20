@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { keyframes } from "@emotion/react";
 import styled from "styled-components";
 import chicken from "../../assets/chicken.svg";
+import { useLocation } from "react-router-dom";
 
 const Result = () => {
   const [bottomBarContent, setBottomBarContent] = useState<string>(
     "내 생각에 기사에서 누구나 꿈을 이룰 수 있다고 말하고 싶은 것 같아!"
   );
   const [showButton, setShowButton] = useState<boolean>(false);
+
+  const location = useLocation();
+  const { score } = location.state;
+  console.log(score);
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,7 +30,7 @@ const Result = () => {
       <QuestionMark>?</QuestionMark>
       <ScoreWrapperTop />
       <ScoreWrapperBottom />
-      <Score>96%</Score>
+      <Score>{score}%</Score>
       <ChickenCharacter src={chicken} />
       <BottomBar>
         {bottomBarContent}
