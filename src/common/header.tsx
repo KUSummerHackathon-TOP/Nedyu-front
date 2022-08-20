@@ -1,6 +1,8 @@
 import { createStyles, Header, Autocomplete, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
 const useStyles = createStyles((theme) => ({
   header: {
     position: "fixed",
@@ -62,6 +64,7 @@ interface HeaderSearchProps {
 const HeaderSearch = ({ links }: HeaderSearchProps) => {
   const { classes } = useStyles();
   const navigate = useNavigate();
+  const auth = false;
 
   const onClickHome = () => {
     navigate("/");
@@ -80,23 +83,45 @@ const HeaderSearch = ({ links }: HeaderSearchProps) => {
           >
             Nedyu
           </div>
-          <Autocomplete
-            className={classes.search}
-            placeholder="Search"
-            data={[
-              "React",
-              "Angular",
-              "Vue",
-              "Next.js",
-              "Riot.js",
-              "Svelte",
-              "Blitz.js",
-            ]}
-          />
         </Group>
+        {!auth ? (
+          <>
+            <AuthButton
+              onClick={() => {
+                navigate("/signin");
+              }}
+              style={{ right: "110px" }}
+            >
+              로그인
+            </AuthButton>
+            <AuthButton
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+              회원가입
+            </AuthButton>
+          </>
+        ) : (
+          <AuthButton>로그아웃</AuthButton>
+        )}
       </div>
     </Header>
   );
 };
 
+const AuthButton = styled.div`
+  position: absolute;
+  right: 30px;
+  padding: 0px 5px;
+  height: 30px;
+  line-height: 30px;
+  color: white;
+  text-align: center;
+  font-weight: 700px;
+  background: #ffd751;
+  border-radius: 10px;
+
+  cursor: pointer;
+`;
 export default HeaderSearch;
