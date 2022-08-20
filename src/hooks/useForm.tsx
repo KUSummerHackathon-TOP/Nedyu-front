@@ -1,14 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 
-type formT = {
-  email: string;
-  password: string;
-};
-
 const useForm = ({ initialValues, validate, onSubmit }) => {
-  const [values, setValues] = useState<formT>(initialValues);
-  const [errors, setErrors] = useState<formT>({});
-  const [touched, setTouched] = useState<formT>({});
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
 
   const handleChange = (e) => {
     setValues({
