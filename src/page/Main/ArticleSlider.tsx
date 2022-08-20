@@ -50,15 +50,15 @@ const ArticleSlider = () => {
   return (
     <Carousel
       withIndicators
-      //sx={{ maxWidth: 300 }}
-      slideSize="20%"
-      slideGap="md"
+      sx={{ maxWidth: "100%" }}
+      slideSize="30%"
+      //slideGap="md"
       loop
       align="start"
       mx="auto"
       slidesToScroll={3}
       controlsOffset="xl"
-      style={{ marginTop: "64px" }}
+      style={{ marginTop: "64px", marginLeft: "100px" }}
     >
       {MockData.map((aritcle: articleT) => {
         return (

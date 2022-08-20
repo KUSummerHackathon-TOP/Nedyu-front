@@ -3,7 +3,9 @@ import HeaderSearch from "../../common/header";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
+import Loading from "./Loading";
 import { useParams } from "react-router-dom";
+
 interface Mockdata {
   id: string;
   title: string;
@@ -23,6 +25,7 @@ const Article: Mockdata = {
 };
 const ArticleDetail = () => {
   const [scroll, setScroll] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   let params = useParams();
 
   useEffect(() => {
@@ -34,7 +37,7 @@ const ArticleDetail = () => {
 
   const handleScroll = () => {
     // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-    if (window.scrollY >= 100) {
+    if (window.scrollY >= 320) {
       setScroll(true);
       console.log(scroll);
     } else {
@@ -43,33 +46,49 @@ const ArticleDetail = () => {
     }
   };
 
+  const summarySubmit = (content: any) => {
+    // axios get
+    setIsLoading(true);
+  };
   return (
-    <Wrapper>
-      <HeaderSearch />
-      <ArticleHeader isShow={scroll} title={Article.title} />
-      <ArticleContent>
-        <HeadLine isShow={!scroll} url={Article.thumbnail}>
-          <div className="idd">{params.id}</div>
-          <div className="company">{Article.company}</div>
-          <div className="title">{Article.title}</div>
-          <div className="date">{Article.date}</div>
-        </HeadLine>
-        <div className="content">{Article.content}</div>
-      </ArticleContent>
-      <SendSummary>
-        <div className="introdce">
-          뉴스가 우리에게 무엇을 말하고 있나요? 우리 함께 글을 요약해 봅시다!
-        </div>
-        <textarea
-          className="summarySubmit"
-          rows="10"
-          placeholder="나만의 생각을 표현해봐!"
-        ></textarea>
-        <SubmitBtn>
-          <div className="subimt">생각 전송</div>
-        </SubmitBtn>
-      </SendSummary>
-    </Wrapper>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Wrapper>
+          <HeaderSearch />
+          <ArticleHeader isShow={scroll} title={Article.title} />
+          <ArticleContent>
+            <HeadLine isShow={!scroll} url={Article.thumbnail}>
+              <div className="idd">{params.id}</div>
+              <div className="company">{Article.company}</div>
+              <div className="title">{Article.title}</div>
+              <div className="date">{Article.date}</div>
+            </HeadLine>
+            <div className="content">{Article.content}</div>
+          </ArticleContent>
+          <SendSummary>
+            <div className="introdce">
+              뉴스가 우리에게 무엇을 말하고 있나요? 우리 함께 글을 요약해
+              봅시다!
+            </div>
+            <textarea
+              id="summarySubmit"
+              className="summarySubmit"
+              rows={10}
+              placeholder="나만의 생각을 표현해봐!"
+            ></textarea>
+            <SubmitBtn
+              onClick={() =>
+                summarySubmit(document.getElementById("summarySubmit"))
+              }
+            >
+              <div className="subimt">생각 전송</div>
+            </SubmitBtn>
+          </SendSummary>
+        </Wrapper>
+      )}
+    </>
   );
 };
 
