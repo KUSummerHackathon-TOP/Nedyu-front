@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { keyframes } from "@emotion/react";
 import styled from "styled-components";
+import chicken from "../../assets/chicken.svg";
 
 const Result = () => {
   const [bottomBarContent, setBottomBarContent] = useState<string>(
@@ -25,6 +26,7 @@ const Result = () => {
       <ScoreWrapperTop />
       <ScoreWrapperBottom />
       <Score>96%</Score>
+      <ChickenCharacter src={chicken} />
       <BottomBar>
         {bottomBarContent}
         {showButton && <SearchArticleButton>뉴스 찾기</SearchArticleButton>}
@@ -173,4 +175,26 @@ const SearchArticleButton = styled.div`
   font-size: 24px;
   line-height: 64px;
   color: #00110f;
+`;
+
+const ChickenCharacter = styled.img`
+  position: fixed;
+  right: 60px;
+  bottom: 100px;
+  width: 110px;
+  height: 110px;
+
+  animation: characterAppear 5s;
+
+  @keyframes characterAppear {
+    0% {
+      right: 100%;
+    }
+    50% {
+      right: 60%;
+    }
+    100% {
+      right: 60px;
+    }
+  }
 `;
