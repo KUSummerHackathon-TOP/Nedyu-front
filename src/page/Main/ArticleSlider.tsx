@@ -8,11 +8,12 @@ import userDTStore from "../../store/userStore";
 import { newsT } from "../../types/type";
 
 const ArticleSlider = () => {
+  console.log("articleslider");
   const navigate = useNavigate();
   const { user } = userDTStore();
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const accessToken = user?.token;
-  const [newslist, setNewslist] = useState<newsT[]>();
+  const [newslist, setNewslist] = useState<newsT[]>([]);
 
   const load_articles = async () => {
     await axios
@@ -38,39 +39,42 @@ const ArticleSlider = () => {
   };
   return (
     <Wrapper>
-      <Carousel
-        withIndicators
-        sx={{ maxWidth: "100%" }}
-        slideSize="30%"
-        //slideGap="md"
-        loop
-        align="start"
-        mx="auto"
-        slidesToScroll={3}
-        controlsOffset="xl"
-        style={{ marginTop: "64px", marginLeft: "100px" }}
-      >
-        {newslist?.map((article) => {
-          console.log("article", article);
-          return (
-            <>
-              <Carousel.Slide>
-                <ArticleItem
-                  onClick={() => {
-                    onClickArticle(Number(article.id));
-                  }}
-                  url={article.thumbnail}
-                >
-                  <div className="overlay" />
-                  <span className="title">{article.title}</span>
-                  <span className="company">{article.companyName}</span>
-                  <span className="content">{article.content}</span>
-                </ArticleItem>
-              </Carousel.Slide>
-            </>
-          );
-        })}
-      </Carousel>
+      {newslist.length > 0 && (
+        <Carousel
+          withIndicators
+          sx={{ maxWidth: "100%" }}
+          slideSize="30%"
+          //slideGap="md"
+          loop
+          align="start"
+          mx="auto"
+          slidesToScroll={3}
+          controlsOffset="xl"
+          style={{ marginTop: "64px", marginLeft: "100px" }}
+        >
+          {newslist?.map((article, idx) => {
+            if (idx > 5) return;
+            console.log("article", article);
+            return (
+              <>
+                <Carousel.Slide>
+                  <ArticleItem
+                    onClick={() => {
+                      onClickArticle(Number(article.id));
+                    }}
+                    url={article.thumbnail}
+                  >
+                    <div className="overlay" />
+                    <span className="title">{article.title}</span>
+                    <span className="company">{article.companyName}</span>
+                    <span className="content">{article.content}</span>
+                  </ArticleItem>
+                </Carousel.Slide>
+              </>
+            );
+          })}
+        </Carousel>
+      )}
     </Wrapper>
   );
 };
