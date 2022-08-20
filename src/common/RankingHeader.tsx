@@ -4,17 +4,39 @@ import logo from "../assets/logo.svg";
 import bar_chart from "../assets/bar_chart.svg";
 import account_circle from "../assets/account_circle.svg";
 import { useNavigate } from "react-router-dom";
+import userDTStore from "../store/userStore";
+
 const RankingHeader = () => {
   const navigate = useNavigate();
+  const { user } = userDTStore();
+
   const onHome = () => {
     navigate("/");
+  };
+  const goLogin = () => {
+    console.log("click");
+    if (user?.token !== undefined) {
+      navigate("/profile");
+    } else {
+      navigate("/signin");
+    }
   };
   return (
     <Wrapper>
       <HeaderTitle>랭킹</HeaderTitle>
       <Logo src={logo} onClick={onHome} />
-      <Bar src={bar_chart} />
-      <Account src={account_circle} />
+      <Bar
+        src={bar_chart}
+        onClick={() => {
+          navigate("/ranking");
+        }}
+      />
+      <Account
+        src={account_circle}
+        onClick={() => {
+          goLogin();
+        }}
+      />
     </Wrapper>
   );
 };

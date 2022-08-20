@@ -3,6 +3,7 @@ import styled from "styled-components";
 import logo_black from "../assets/logo_black.svg";
 import bar_chart from "../assets/bar_chart.svg";
 import account_circle from "../assets/account_circle.svg";
+import smile from "../assets/smile.svg";
 import userDTStore from "../store/userStore";
 import { useNavigate } from "react-router-dom";
 
@@ -35,7 +36,7 @@ const Header = () => {
         onClick={() => {
           goLogin();
         }}
-        src={account_circle}
+        src={user ? smile : account_circle}
       />
     </Wrapper>
   );

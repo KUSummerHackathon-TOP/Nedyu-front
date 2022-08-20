@@ -7,6 +7,7 @@ import ArticleDetail from "./page/ArticleDetail";
 import Result from "./page/Result";
 import ArticleRanking from "./page/ArticleRanking";
 import UserProfile from "./page/UserProfile";
+import GlobalRanking from "./page/GlobalRanking";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/result/:id" element={<Result />} />
           <Route path="/ranking/:id" element={<ArticleRanking />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/ranking" element={<GlobalRanking />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -12,6 +12,12 @@ export type articleRankerT = {
   score: number;
 };
 
+export type globalRankerT = {
+  name: string;
+  score: number;
+  prob_num: number;
+};
+
 export type userDT = {
   id: number;
   email: string;

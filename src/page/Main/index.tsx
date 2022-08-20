@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../../common/Header";
+import Header from "../../common/header";
 import Banner from "./Banner";
 import ArticleSlider from "./ArticleSlider";
 

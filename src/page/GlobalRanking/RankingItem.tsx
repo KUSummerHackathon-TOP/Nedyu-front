@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { articleRankerT } from "../../types/type";
+import { globalRankerT } from "../../types/type";
 
 interface Props {
   rank: number;
-  ranker: articleRankerT;
+  ranker: globalRankerT;
 }
 
 const RankingItem = ({ rank, ranker }: Props) => {
@@ -12,7 +12,8 @@ const RankingItem = ({ rank, ranker }: Props) => {
     <Wrapper rank={rank}>
       <div className="rank">{rank}</div>
       <div className="name">{ranker.name}</div>
-      <div className="score">{ranker.score}</div>
+      <div className="solved">{ranker.prob_num}</div>
+      <div className="score">{ranker.score.toFixed()}</div>
     </Wrapper>
   );
 };
@@ -46,15 +47,25 @@ const Wrapper = styled.div<{ rank: number }>`
     font-weight: 700;
     font-size: 24px;
   }
+
+  .solved {
+    position: absolute;
+    right: 300px;
+    top: 25px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    font-size: 24px;
+  }
   .score {
     position: absolute;
     right: 40px;
     top: 25px;
     font-family: "Roboto";
     font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
+    font-weight: 700;
     line-height: 28px;
-    color: #00110f;
+    font-size: 24px;
   }
 `;
