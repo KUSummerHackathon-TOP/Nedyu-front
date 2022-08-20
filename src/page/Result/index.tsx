@@ -3,22 +3,23 @@ import { keyframes } from "@emotion/react";
 import styled from "styled-components";
 import chicken from "../../assets/chicken.svg";
 import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import BottomBar from "../../common/BottomBar";
 
 const Result = () => {
   const [bottomBarContent, setBottomBarContent] = useState<string>(
     "내 생각에 기사에서 누구나 꿈을 이룰 수 있다고 말하고 싶은 것 같아!"
   );
   const [showButton, setShowButton] = useState<boolean>(false);
+  const id = useParams().id;
 
-  const location = useLocation();
+  const location: any = useLocation();
   const { score } = location.state;
   console.log(score);
 
   useEffect(() => {
     setTimeout(() => {
-      setBottomBarContent(
-        "와우 뉴스를 완벽하게 이해했군요! 다음에 어떤 기사를 요약해 볼까요?"
-      );
+      setBottomBarContent("다음에 어떤 기사를 요약해 볼까요?");
       setShowButton(true);
     }, 3000);
   }, []);
@@ -32,10 +33,12 @@ const Result = () => {
       <ScoreWrapperBottom />
       <Score>{score}%</Score>
       <ChickenCharacter src={chicken} />
-      <BottomBar>
-        {bottomBarContent}
-        {showButton && <SearchArticleButton>뉴스 찾기</SearchArticleButton>}
-      </BottomBar>
+      <BottomBar
+        content={bottomBarContent}
+        isSearchButtonShow={showButton}
+        isRankingButtonShow={showButton}
+        articleId={id}
+      />
     </>
   );
 };
@@ -46,22 +49,6 @@ const TopBar = styled.div`
   display: flex;
   position: fixed;
   top: 0px;
-  height: 100px;
-  width: 100%;
-  background: #ffd751;
-  justify-content: center;
-  align-items: center;
-  z-index: 5;
-
-  font-style: normal;
-  font-size: 28px;
-  font-weight: 700;
-`;
-
-const BottomBar = styled.div`
-  display: flex;
-  position: fixed;
-  bottom: 0px;
   height: 100px;
   width: 100%;
   background: #ffd751;
@@ -162,24 +149,6 @@ const SubTitle = styled.div`
   text-align: center;
   color: #00110f;
   z-index: 3;
-`;
-
-const SearchArticleButton = styled.div`
-  position: fixed;
-  bottom: 18px;
-  right: 30px;
-  width: 140px;
-  height: 64px;
-  border-radius: 64px;
-  background: #ffffff;
-  text-align: center;
-  cursor: pointer;
-
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 64px;
-  color: #00110f;
 `;
 
 const ChickenCharacter = styled.img`

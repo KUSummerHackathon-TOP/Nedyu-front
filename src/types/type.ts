@@ -6,3 +6,8 @@ export type articleT = {
   thumbnail: string;
   content: string;
 };
+
+export type articleRankerT = {
+  name: string;
+  score: number;
+};
