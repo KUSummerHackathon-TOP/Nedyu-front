@@ -9,11 +9,18 @@ const Banner = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const onSubmit = async () => {
-    const data = await axios.post("/api/v1/auth/email/login", {
-      email,
-      password,
-    });
+  const onSubmit = () => {
+    axios
+      .post("/api/v1/auth/email/login", {
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((e) => {
+        console.log("e", e);
+      });
     console.log("data");
   };
   return (
@@ -30,13 +37,13 @@ const Banner = () => {
       </SubTitle>
       <Input
         value={email}
-        onChange={() => setEmail(email)}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="이메일 주소"
         style={{ bottom: "100px" }}
       />
       <Input
         value={password}
-        onChange={() => setPassword(password)}
+        onChange={(e) => setPassword(e.target.value)}
         placeholder="비밀번호"
         style={{ bottom: "50px" }}
       />
@@ -106,6 +113,7 @@ const Input = styled.input`
 
   background: #ffffff;
   border-radius: 5px;
+  font-size: 17px;
 `;
 
 const LoginButton = styled.button`

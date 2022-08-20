@@ -5,20 +5,34 @@ interface Props {
   value: string;
   placeholder: string;
   setValue: (value: string) => void;
-  isValidate?: () => void;
+  isValidate?: boolean;
   errorMessage?: string;
 }
 
-const InputForm = ({ value, placeholder, setValue }: Props) => {
-  const [errorMsg, setErrorMsg] = useState("");
+const InputForm = ({
+  value,
+  placeholder,
+  errorMessage,
+  isValidate,
+  setValue,
+}: Props) => {
+  const [errorMsg, setErrorMsg] = useState(errorMessage);
   useEffect(() => {
     if (value === "") {
       setErrorMsg("필수 입력 항목입니다!");
       return;
     }
-    setErrorMsg("");
-    console.log("value", value);
+    if (isValidate === true || isValidate === undefined) {
+      setErrorMsg("");
+      return;
+    }
+    setErrorMsg(errorMessage);
   }, [value]);
+
+  useEffect(() => {
+    if (isValidate === true || isValidate === undefined) return;
+    setErrorMsg(errorMessage);
+  }, [isValidate]);
   return (
     <Wrapper>
       <Input
@@ -39,7 +53,7 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input<{ borderColor: string }>`
-  width: 680px;
+  width: 550px;
   border: none;
   outline: none;
   font-family: "Roboto";
