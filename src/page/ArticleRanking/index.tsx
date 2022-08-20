@@ -45,6 +45,7 @@ const ArticleRanking = () => {
       })
       .then((res) => {
         console.log(res);
+        setRanker(res.data);
       })
       .catch((err) => {
         console.log("e", err);
