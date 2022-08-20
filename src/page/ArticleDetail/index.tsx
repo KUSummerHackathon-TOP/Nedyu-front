@@ -73,19 +73,21 @@ const ArticleDetail = () => {
               뉴스가 우리에게 무엇을 말하고 있나요? 우리 함께 글을 요약해
               봅시다!
             </div>
-            <textarea
-              id="summarySubmit"
-              className="summarySubmit"
-              rows={10}
-              placeholder="나만의 생각을 표현해봐!"
-            ></textarea>
-            <SubmitBtn
-              onClick={() =>
-                summarySubmit(document.getElementById("summarySubmit"))
-              }
-            >
-              <div className="subimt">생각 전송</div>
-            </SubmitBtn>
+            <div className="summaryWrapper">
+              <textarea
+                id="summarySubmit"
+                className="summarySubmit"
+                rows={10}
+                placeholder="나만의 생각을 표현해봐!"
+              ></textarea>
+              <SubmitBtn
+                onClick={() =>
+                  summarySubmit(document.getElementById("summarySubmit"))
+                }
+              >
+                <div className="subimt">생각 전송</div>
+              </SubmitBtn>
+            </div>
           </SendSummary>
         </Wrapper>
       )}
@@ -95,9 +97,9 @@ const ArticleDetail = () => {
 
 export default ArticleDetail;
 const SubmitBtn = styled.button`
-  position: relative;
-  left: 750px;
-  bottom: 80px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -157,19 +159,30 @@ const SendSummary = styled.div`
     font-size: 24px;
     line-height: 28px;
   }
-  .summarySubmit {
-    margin-top: 24px;1
-    display: flex;
+
+  .summaryWrapper {
     width: 100%;
-    height: 
+    height: 400px;
+    margin-top: 24px;
+    background: #ffffe2;
+    border-radius: 30px;
+  }
+  .summarySubmit {
+    border: none;
+    outline: none;
+    margin-top: 30px;
+    margin-left: 5%;
+    display: flex;
+    width: 90%;
+    height: 70%;
     resize: none;
     font-family: "Roboto";
     font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 28px;
-    padding: 30px 61px 80px 24px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
     box-sizing: border-box;
+    background: #ffffe2;
   }
 `;
 
@@ -186,6 +199,10 @@ const ArticleContent = styled.div`
     font-weight: 400;
     font-size: 24px;
     line-height: 28px;
+
+    &:: selection {
+      background-color: #ffffe2;
+    }
   }
 `;
 

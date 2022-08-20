@@ -78,7 +78,7 @@ const HeaderSearch = ({ links }: HeaderSearchProps) => {
               fontSize: "40px",
             }}
           >
-            NEdu
+            Nedyu
           </div>
           <Autocomplete
             className={classes.search}
