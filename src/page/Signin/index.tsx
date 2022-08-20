@@ -13,7 +13,7 @@ const Login = () => {
   }, [user]);
   const onSubmit = async () => {
     try {
-      const res = await axios.post("/api/v1/auth/email/login", {
+      const res = await axios.post("/api/v1/auth/admin/email/login", {
         email,
         password,
       });

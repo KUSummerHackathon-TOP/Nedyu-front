@@ -21,7 +21,7 @@ const Signup = () => {
   const onSubmit = () => {
     if (!fullFilled) return;
     axios
-      .post("/api/v1/auth/email/register", {
+      .post("/api/v1/auth/admin/email/register", {
         email,
         password,
         firstName,

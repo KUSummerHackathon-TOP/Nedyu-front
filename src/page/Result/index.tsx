@@ -8,13 +8,14 @@ import BottomBar from "../../common/BottomBar";
 import ArticleList from "./ArticleList";
 import useArticleStore from "../../store/articleStore";
 import axios from "axios";
+import userDTStore from "../../store/userStore";
 
 const Result = () => {
   const id = useParams().id;
   const location: any = useLocation();
   const { score } = location.state;
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6eyJpZCI6MSwibmFtZSI6IkFkbWluIiwiX19lbnRpdHkiOiJSb2xlIn0sImlhdCI6MTY2MDk3OTE4MiwiZXhwIjoxNjYxMDY1NTgyfQ.pL9Zx6Ed0NFgyRQUWzN-thDmzHt6cEEz1f7LlhXlIxs";
+  const { user } = userDTStore();
+  const accessToken = user?.token;
   const { similarArticleList, setSimilarArticleList } = useArticleStore();
   const [bottomBarContent, setBottomBarContent] = useState<string>(
     "내 생각에 기사에서 누구나 꿈을 이룰 수 있다고 말하고 싶은 것 같아!"
@@ -27,7 +28,7 @@ const Result = () => {
       setBottomBarContent("다음에 어떤 기사를 요약해 볼까요?");
       setShowButton(true);
     }, 3000);
-
+    // similar topic news suggestion api call
     setTimeout(() => {
       axios
         .get("/api/v1/article/article-lists/7", {
