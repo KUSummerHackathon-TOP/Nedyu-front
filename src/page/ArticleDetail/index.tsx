@@ -5,7 +5,8 @@ import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
 import Loading from "./Loading";
 import { useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 interface Mockdata {
   id: string;
   title: string;
@@ -27,6 +28,7 @@ const ArticleDetail = () => {
   const [scroll, setScroll] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   let params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -45,10 +47,17 @@ const ArticleDetail = () => {
     }
   };
 
-  const summarySubmit = (content: any) => {
-    // axios get
+  const summarySubmit = (content: string) => {
     setIsLoading(true);
+    axios
+      .post('/api/v1/article/evaluate/{id}')
+      .then( res => {
+        const score = res.score
+      })
+    if()
+    navigate("/score");
   };
+
   return (
     <>
       {isLoading ? (
