@@ -62,7 +62,7 @@ const ArticleSlider = () => {
                     onClick={() => {
                       onClickArticle(Number(article.id));
                     }}
-                    url={article.thumbnail}
+                    url={`data:image/png;base64, ${article.thumbnail}`}
                   >
                     <div className="overlay" />
                     <span className="title">{article.title}</span>
