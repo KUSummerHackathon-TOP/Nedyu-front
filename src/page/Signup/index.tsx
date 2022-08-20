@@ -1,51 +1,61 @@
-import { useForm } from "../../hooks";
+import React, { useState } from "react";
+import styled from "styled-components";
+import InputForm from "./InputForm";
 
-const Signup = () => {
-  const { errors, touched, handleChange, handleBlur, handleSubmit } = useForm({
-    initialValues: { email: "", password: "" },
-    validate: (values: object) => {
-      const errors = {
-        email: "",
-        password: "",
-      };
-
-      if (!values.email) {
-        errors.email = "이메일을 입력하세요";
-      }
-      if (!values.password) {
-        errors.password = "비밀번호를 입력하세요";
-      }
-
-      return errors;
-    },
-    onSubmit: (values: object) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-
+const Singup = () => {
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
+    <Wrapper>
+      <Field>이름</Field>
+      <InputForm
+        value={firstName}
+        placeholder="First name"
+        setValue={(value) => setFirstName(value)}
       />
-      {touched.email && errors.email && <span>{errors.email}</span>}
-
-      <input
-        type="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
+      <InputForm
+        value={lastName}
+        placeholder="Last name"
+        setValue={(value) => setLastName(value)}
       />
-      {touched.password && errors.password && <span>{errors.password}</span>}
-
-      <button type="submit">Login</button>
-    </form>
+      <Field>이메일</Field>
+      <InputForm
+        value={email}
+        placeholder="Email"
+        setValue={(value) => setEmail(value)}
+      />
+      <Field>비밀번호</Field>
+      <InputForm
+        value={password}
+        placeholder="Password"
+        setValue={(value) => setPassword(value)}
+      />
+      <InputForm
+        value={passwordConfirm}
+        placeholder="Password Confirm"
+        setValue={(value) => setPasswordConfirm(value)}
+      />
+    </Wrapper>
   );
 };
 
-export default Signup;
+export default Singup;
+
+const Wrapper = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+`;
+
+const Field = styled.div`
+  margin-bottom: 40px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  color: #00110f;
+`;
