@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import HeaderSearch from "../../common/header";
-import Explanation from "./Explanation";
+import Banner from "./Banner";
 import ArticleSlider from "./ArticleSlider";
 
 const Main = () => {
   return (
     <Wrapper>
       <HeaderSearch />
-      <Explanation />
+      <Banner />
       <ArticleSlider />
     </Wrapper>
   );

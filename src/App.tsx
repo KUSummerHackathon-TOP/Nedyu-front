@@ -5,6 +5,7 @@ import Signin from "./page/Signin";
 import Signup from "./page/Signup";
 import ArticleDetail from "./page/ArticleDetail";
 import Result from "./page/Result";
+import ArticleRanking from "./page/ArticleRanking";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/newsdetail/:id" element={<ArticleDetail />} />
           <Route path="/result/:id" element={<Result />} />
+          <Route path="/ranking/:id" element={<ArticleRanking />} />
         </Routes>
       </BrowserRouter>
     </>
