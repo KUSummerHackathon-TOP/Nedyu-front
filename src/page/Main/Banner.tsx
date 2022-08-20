@@ -12,8 +12,10 @@ const Banner = () => {
   const { user, setUserInfo } = userDTStore();
 
   const onSubmit = async () => {
+    console.log(email, password);
+
     try {
-      const res = await axios.post("/api/v1/auth/email/login", {
+      const res = await axios.post("/api/v1/auth/admin/email/login", {
         email,
         password,
       });

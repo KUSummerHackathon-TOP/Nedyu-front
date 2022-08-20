@@ -1,31 +1,65 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import RankingHeader from "../../common/RankingHeader";
 import { articleRankerT } from "../../types/type";
 import RankingItem from "./RankingItem";
 import BottomBar from "../../common/BottomBar";
-const MockData: articleRankerT[] = [
-  { name: "Nedyu1", score: 98 },
-  { name: "Nedyu2", score: 97 },
-  { name: "Nedyu3", score: 96 },
-  { name: "Nedyu4", score: 95 },
-  { name: "Nedyu5", score: 94 },
-  { name: "Nedyu6", score: 93 },
-  { name: "Nedyu7", score: 92 },
-  { name: "Nedyu8", score: 91 },
-  { name: "Nedyu9", score: 90 },
-];
+import axios from "axios";
+import userDTStore from "../../store/userStore";
+// const MockData: articleRankerT[] = [
+//   { name: "Nedyu1", score: 98 },
+//   { name: "Nedyu2", score: 97 },
+//   { name: "Nedyu3", score: 96 },
+//   { name: "Nedyu4", score: 95 },
+//   { name: "Nedyu5", score: 94 },
+//   { name: "Nedyu6", score: 93 },
+//   { name: "Nedyu7", score: 92 },
+//   { name: "Nedyu8", score: 91 },
+//   { name: "Nedyu9", score: 90 },
+// ];
 
 const ArticleRanking = () => {
   const params = useParams();
-  const id = params.id;
+  const id = Number(params.id);
+  const [articleid, setArticleid] = useState(id);
+  const { user } = userDTStore();
+  const accessToken = user?.token;
+  const [ranker, setRanker] = useState([
+    { name: "Nedyu1", score: 98 },
+    { name: "Nedyu2", score: 97 },
+    { name: "Nedyu3", score: 96 },
+    { name: "Nedyu4", score: 95 },
+    { name: "Nedyu5", score: 94 },
+    { name: "Nedyu6", score: 93 },
+    { name: "Nedyu7", score: 92 },
+    { name: "Nedyu8", score: 91 },
+    { name: "Nedyu9", score: 90 },
+  ]);
+  const getRankings = () => {
+    axios
+      .get(`/api/v1/article/rank/${articleid}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("e", err);
+      });
+  };
+
+  useEffect(() => {
+    getRankings();
+  }, [articleid]);
   return (
     <>
       <RankingHeader />
       <RankerItemWrapper>
         <Title>방금 내가 읽은 뉴스, Nedyu에서 가장 요약을 잘한 사람들!</Title>
-        {MockData.map((ranker: articleRankerT, idx) => {
+        {ranker.map((ranker: articleRankerT, idx) => {
           return <RankingItem ranker={ranker} rank={idx + 1} />;
         })}
       </RankerItemWrapper>
