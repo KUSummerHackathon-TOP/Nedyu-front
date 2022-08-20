@@ -1,34 +1,37 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import userDTStore from "../../store/userStore";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { user, setUserInfo } = userDTStore();
-
-  const onSubmit = () => {
-    axios
-      .post("/api/v1/auth/email/login", {
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+  const onSubmit = async () => {
+    try {
+      const res = await axios.post("/api/v1/auth/email/login", {
         email,
         password,
-      })
-      .then((res) => {
-        setUserInfo({
-          id: res.data.user.id,
-          email: res.data.user.email,
-          firstName: res.data.user.firstName,
-          lastName: res.data.user.lastName,
-          createdAt: res.data.user.createdAt,
-          updatedAt: res.data.user.updatedAt,
-          token: res.data.token,
-        });
-        console.log(user);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      console.log(res);
+
+      setUserInfo({
+        id: res.data.user.id,
+        email: res.data.user.email,
+        firstName: res.data.user.firstName,
+        lastName: res.data.user.lastName,
+        createdAt: res.data.user.createdAt,
+        updatedAt: res.data.user.updatedAt,
+        token: res.data.token,
+      });
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

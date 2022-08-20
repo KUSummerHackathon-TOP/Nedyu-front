@@ -11,30 +11,27 @@ const Banner = () => {
   const [password, setPassword] = useState<string>("");
   const { user, setUserInfo } = userDTStore();
 
-  const onSubmit = () => {
-    axios
-      .post("/api/v1/auth/email/login", {
+  const onSubmit = async () => {
+    try {
+      const res = await axios.post("/api/v1/auth/email/login", {
         email,
         password,
-      })
-      .then((res) => {
-        console.log("res", res);
-
-        setUserInfo({
-          id: res.data.user.id,
-          email: res.data.user.email,
-          firstName: res.data.user.firstName,
-          lastName: res.data.user.lastName,
-          createdAt: res.data.user.createdAt,
-          updatedAt: res.data.user.updatedAt,
-          token: res.data.token,
-        });
-        console.log(user);
-      })
-      .catch((err) => {
-        console.log(err);
       });
-    console.log("data");
+      console.log(res);
+
+      setUserInfo({
+        id: res.data.user.id,
+        email: res.data.user.email,
+        firstName: res.data.user.firstName,
+        lastName: res.data.user.lastName,
+        createdAt: res.data.user.createdAt,
+        updatedAt: res.data.user.updatedAt,
+        token: res.data.token,
+      });
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Wrapper>

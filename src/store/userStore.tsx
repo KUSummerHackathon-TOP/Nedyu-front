@@ -8,7 +8,7 @@ type State = {
 
 const userDTStore = create<State>((set) => ({
   user: undefined,
-  setUserInfo: (data: userDT) => set((state) => ({ ...state, userDT: data })),
+  setUserInfo: (data: userDT) => set((state) => ({ ...state, user: data })),
 }));
 
 export default userDTStore;

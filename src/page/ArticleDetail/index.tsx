@@ -3,6 +3,7 @@ import HeaderSearch from "../../common/header";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
+import userDTStore from "../../store/userStore";
 
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -103,6 +104,8 @@ const ArticleDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   let params: any = useParams();
   const navigate = useNavigate();
+  const [summary, setSummary] = useState<string>("");
+  const { user } = userDTStore();
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -124,11 +127,22 @@ const ArticleDetail = () => {
   const summarySubmit = (id: number, content: string) => {
     // ! type 변경
     let score: number = 80;
+    console.log(id, content);
+    console.log(user);
+
     axios
-      .post(`/api/v1/article/evaluate/`, {
-        article_id: id,
-        summary: content,
-      })
+      .post(
+        "/api/v1/article/evaluate/",
+        {
+          article_id: id,
+          summary: content,
+        },
+        {
+          headers: {
+            Authorization: user.token,
+          },
+        }
+      )
       .then((res) => {
         console.log("Score", res);
 
@@ -175,18 +189,14 @@ const ArticleDetail = () => {
             </div>
             <div className="summaryWrapper">
               <textarea
-                id="summarySubmit"
+                value={summary}
+                onChange={(e) => setSummary(e.target.value)}
                 className="summarySubmit"
                 rows={10}
                 placeholder="나만의 생각을 표현해봐!"
               ></textarea>
               <SubmitBtn
-                onClick={() =>
-                  summarySubmit(
-                    Number(params.id),
-                    document.getElementById("summarySubmit")
-                  )
-                }
+                onClick={() => summarySubmit(Number(params.id), summary)}
               >
                 <div className="subimt">생각 전송</div>
               </SubmitBtn>
