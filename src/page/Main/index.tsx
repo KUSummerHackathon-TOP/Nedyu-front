@@ -1,76 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { Carousel } from "@mantine/carousel";
 import HeaderSearch from "../../common/header";
-import { articleT } from "../../types/type";
-import thumbnail from "../../assets/thumbnail.jpeg";
-
-const MockData: articleT[] = [
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content:
-      "Orange Prize winner Andrea Levy has seen her book Small Island win the Whitbread Novel of the Year Award.She is now favourite to win the overall prize after beating Booker winner Alan Hollinghurst's The Line of Beauty.",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content: "",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content: "",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    company: "BBC News",
-    date: "2005.01.05",
-    thumbnail: thumbnail,
-    content: "",
-  },
-];
+import Explanation from "./Explanation";
+import ArticleSlider from "./ArticleSlider";
 
 const Main = () => {
   return (
     <Wrapper>
       <HeaderSearch />
-      <Carousel
-        withIndicators
-        //sx={{ maxWidth: 300 }}
-        slideSize="33.33%"
-        slideGap="md"
-        loop
-        align="start"
-        mx="auto"
-        slidesToScroll={4}
-      >
-        {MockData.map((aritcle: articleT) => {
-          return (
-            <>
-              <Carousel.Slide>
-                <ArticleItem url={aritcle.thumbnail}>
-                  <div className="overlay" />
-                  <span className="title">{aritcle.title}</span>
-                  <span className="company">{aritcle.company}</span>
-                  <span className="date">{aritcle.date}</span>
-                  <span className="content">{aritcle.content}</span>
-                </ArticleItem>
-              </Carousel.Slide>
-            </>
-          );
-        })}
-      </Carousel>
+      <Explanation />
+      <ArticleSlider />
     </Wrapper>
   );
 };
@@ -79,84 +18,4 @@ export default Main;
 
 const Wrapper = styled.div`
   width: 100%;
-`;
-
-const ArticleItem = styled.div<{ url?: string }>`
-  width: 330px;
-  height: 328px;
-  border-radius: 30px;
-  color: white;
-  background-image: url(${({ url }) => url});
-  background-size: cover;
-
-  .overlay {
-    position: absolute;
-    width: 330px;
-    height: 328px;
-    border-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-
-  .title {
-    position: absolute;
-    left: 24px;
-    top: 147px;
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-  }
-
-  .company {
-    position: absolute;
-    left: 24px;
-    top: 213px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 28px;
-  }
-
-  .date {
-    position: absolute;
-    left: 24px;
-    top: 273px; 
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-  }
-
-  .content {
-    position: absolute;
-    top: 105px;
-    left: 24px; 
-    width: 282px;
-    visibility: hidden;
-  }
-
-  &: hover{
-    .overlay{
-        background-color: rgba(0, 0, 0, 0.7);
-    }
-    .title{
-        visibility: hidden;
-    }
-
-    .company{
-        visibility: hidden;
-    }
-    .date{
-        visibility: hidden;
-    }
-    
-    .content {
-        visibility: visible;
-    }
-  }
-
-  .
 `;

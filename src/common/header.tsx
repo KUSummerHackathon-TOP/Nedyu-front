@@ -66,7 +66,14 @@ const HeaderSearch = ({ links }: HeaderSearchProps) => {
     <Header height={56} className={classes.header} mb={120}>
       <div className={classes.inner}>
         <Group>
-          <div>NEdu</div>
+          <div
+            style={{
+              fontWeight: 700,
+              fontSize: "40px",
+            }}
+          >
+            NEdu
+          </div>
           <Autocomplete
             className={classes.search}
             placeholder="Search"
