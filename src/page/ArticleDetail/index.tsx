@@ -198,6 +198,10 @@ const ArticleContent = styled.div`
     font-weight: 400;
     font-size: 24px;
     line-height: 28px;
+
+    &:: selection {
+      background-color: #ffffe2;
+    }
   }
 `;
 
