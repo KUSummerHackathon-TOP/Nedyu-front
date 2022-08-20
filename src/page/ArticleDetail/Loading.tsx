@@ -23,17 +23,17 @@ const Loading = () => {
     return () => clearInterval(toogleImg);
   }, []);
   return (
-    <Wrapper>
+    <Wrapper1>
       <Title>Nedyu가 내 생각을 전송하고 있어요!</Title>
       <Character src={src} />
       <Span>Levy takes Whitbread novel prize</Span>
-    </Wrapper>
+    </Wrapper1>
   );
 };
 
 export default Loading;
 
-const Wrapper = styled.div`
+const Wrapper1 = styled.div`
   position: absolute;
   top: 0;
   left: 0;

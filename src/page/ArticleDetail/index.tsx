@@ -1,12 +1,85 @@
-import react, { useEffect, useState } from "react";
+import react, { useEffect, useState, useRef } from "react";
 import HeaderSearch from "../../common/header";
 import styled from "styled-components";
 import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
-import Loading from "./Loading";
+
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import eggChicken from "../../assets/egg_chicken.svg";
+import eggChicken2 from "../../assets/egg_chicken2.svg";
+
+const Loading = () => {
+  const srcRef = useRef<string>(eggChicken);
+  const [src, setSrc] = useState(srcRef.current);
+
+  useEffect(() => {
+    srcRef.current = src;
+  }, [src]);
+
+  useEffect(() => {
+    const toogleImg = setInterval(() => {
+      if (srcRef.current === eggChicken) {
+        srcRef.current = eggChicken2;
+      } else srcRef.current = eggChicken;
+      setSrc(srcRef.current);
+      console.log("toggle");
+    }, 500);
+
+    return () => clearInterval(toogleImg);
+  }, []);
+  return (
+    <Wrapper1>
+      <Title>Nedyu가 내 생각을 전송하고 있어요!</Title>
+      <Character src={src} />
+      <Span>Levy takes Whitbread novel prize</Span>
+    </Wrapper1>
+  );
+};
+
+const Wrapper1 = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  //display: flex;
+  //ustify-content: center;
+  background: #ffd751;
+`;
+
+const Title = styled.div`
+  margin-top: 10%;
+  width: 100%;
+  text-align: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 49px;
+  color: #00110f;
+`;
+
+const Character = styled.img`
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+`;
+
+const Span = styled.div`
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  text-align: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 32px;
+  color: #303434;
+`;
+
 interface Mockdata {
   id: string;
   title: string;
@@ -47,12 +120,34 @@ const ArticleDetail = () => {
     }
   };
 
-  const summarySubmit = (content: string) => {
-    setIsLoading(true);
-    axios.post("/api/v1/article/evaluate/{id}").then((res) => {
-      const score: number = res.score;
-    });
-    navigate("/score");
+  const summarySubmit = (id: string, content: string) => {
+    // ! type 변경
+    let score: any = 80;
+    axios
+      .post("/api/v1/article/evaluate/{id}", {
+        userid: "1",
+        articleid: id,
+        content: content,
+      })
+      .then((res) => {
+        console.log(res.score);
+
+        score = res.score;
+        score = 100;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (score !== undefined) {
+      setIsLoading(true);
+      setTimeout(() => {
+        navigate(`/result/${id}`, {
+          state: {
+            score: score,
+          },
+        });
+      }, 5000);
+    } else setIsLoading(true);
   };
 
   return (
@@ -88,7 +183,10 @@ const ArticleDetail = () => {
               ></textarea>
               <SubmitBtn
                 onClick={() =>
-                  summarySubmit(document.getElementById("summarySubmit"))
+                  summarySubmit(
+                    params.id,
+                    document.getElementById("summarySubmit")
+                  )
                 }
               >
                 <div className="subimt">생각 전송</div>
