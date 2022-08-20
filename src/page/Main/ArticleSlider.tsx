@@ -76,13 +76,6 @@ const ArticleSlider = () => {
                 <span className="date">{aritcle.date}</span>
                 <span className="content">{aritcle.content}</span>
               </ArticleItem>
-              <SendSummary>
-                <div className="introdce">
-                  뉴스가 우리에게 무엇을 말하고 있나요? 우리 함께 글을 요약해
-                  봅시다!
-                </div>
-                <div></div>
-              </SendSummary>
             </Carousel.Slide>
           </>
         );
@@ -92,15 +85,7 @@ const ArticleSlider = () => {
 };
 
 export default ArticleSlider;
-const SendSummary = styled.div`
-  .introdce {
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 28px;
-  }
-`;
+
 const ArticleItem = styled.div<{ url?: string }>`
   width: 330px;
   height: 328px;

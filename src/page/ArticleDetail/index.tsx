@@ -25,7 +25,7 @@ const Article: Mockdata = {
 };
 const ArticleDetail = () => {
   const [scroll, setScroll] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   let params = useParams();
 
   useEffect(() => {
@@ -46,12 +46,16 @@ const ArticleDetail = () => {
     }
   };
 
+  const summarySubmit = (content: any) => {
+    // axios get
+    setIsLoading(true);
+  };
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <Wrapper>
           <HeaderSearch />
           <ArticleHeader isShow={scroll} title={Article.title} />
           <ArticleContent>
@@ -63,13 +67,111 @@ const ArticleDetail = () => {
             </HeadLine>
             <div className="content">{Article.content}</div>
           </ArticleContent>
-        </>
+          <SendSummary>
+            <div className="introdce">
+              뉴스가 우리에게 무엇을 말하고 있나요? 우리 함께 글을 요약해
+              봅시다!
+            </div>
+            <textarea
+              id="summarySubmit"
+              className="summarySubmit"
+              rows={10}
+              placeholder="나만의 생각을 표현해봐!"
+            ></textarea>
+            <SubmitBtn
+              onClick={() =>
+                summarySubmit(document.getElementById("summarySubmit"))
+              }
+            >
+              <div className="subimt">생각 전송</div>
+            </SubmitBtn>
+          </SendSummary>
+        </Wrapper>
       )}
     </>
   );
 };
 
 export default ArticleDetail;
+const SubmitBtn = styled.button`
+  position: relative;
+  left: 750px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 18px 22.5px;
+  gap: 8px;
+  background: #ffd751;
+  border-radius: 999px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  z-index: 1;
+  .submit {
+    width: 95px;
+    height: 28px;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 28px;
+
+    /* 1 */
+
+    color: #00110f;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const SendSummary = styled.div`
+  position: relative;
+  display: flex;
+  margin-top: 120px;
+  margin-bottom: 120px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 914px;
+  .introdce {
+    display: flex;
+    justify-content: flex-start;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .summarySubmit {
+    margin-top: 24px;1
+    display: flex;
+    width: 100%;
+    height: 
+    resize: none;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 28px;
+    padding: 30px 61px 80px 24px;
+    box-sizing: border-box;
+  }
+`;
+
 const ArticleContent = styled.div`
   width: 1440px;
 
@@ -77,6 +179,7 @@ const ArticleContent = styled.div`
 
   .content {
     padding: 120px 263px 0px 263px;
+    width: 941px;
     font-family: "Roboto";
     font-style: normal;
     font-weight: 400;
