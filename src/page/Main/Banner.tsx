@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import nest from "../../assets/nest.svg";
 import { useNavigate } from "react-router-dom";
+import userDTStore from "../../store/userStore";
 import axios from "axios";
 
 const Banner = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { user, setUserInfo } = userDTStore();
 
   const onSubmit = () => {
     axios
@@ -17,9 +19,20 @@ const Banner = () => {
       })
       .then((res) => {
         console.log("res", res);
+
+        setUserInfo({
+          id: res.data.user.id,
+          email: res.data.user.email,
+          firstName: res.data.user.firstName,
+          lastName: res.data.user.lastName,
+          createdAt: res.data.user.createdAt,
+          updatedAt: res.data.user.updatedAt,
+          token: res.data.token,
+        });
+        console.log(user);
       })
-      .catch((e) => {
-        console.log("e", e);
+      .catch((err) => {
+        console.log(err);
       });
     console.log("data");
   };
