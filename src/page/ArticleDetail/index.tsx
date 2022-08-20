@@ -5,7 +5,8 @@ import thumbnail from "../../assets/thumbnail.jpeg";
 import ArticleHeader from "../../common/articleHeader";
 import Loading from "./Loading";
 import { useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 interface Mockdata {
   id: string;
   title: string;
@@ -27,6 +28,7 @@ const ArticleDetail = () => {
   const [scroll, setScroll] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   let params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -39,17 +41,23 @@ const ArticleDetail = () => {
     // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
     if (window.scrollY >= 320) {
       setScroll(true);
-      console.log(scroll);
     } else {
       // 스크롤이 50px 미만일경우 false를 넣어줌
       setScroll(false);
     }
   };
 
-  const summarySubmit = (content: any) => {
-    // axios get
+  const summarySubmit = (content: string) => {
     setIsLoading(true);
+    axios
+      .post('/api/v1/article/evaluate/{id}')
+      .then( res => {
+        const score = res.score
+      })
+    if()
+    navigate("/score");
   };
+
   return (
     <>
       {isLoading ? (
@@ -65,7 +73,9 @@ const ArticleDetail = () => {
               <div className="title">{Article.title}</div>
               <div className="date">{Article.date}</div>
             </HeadLine>
-            <div className="content">{Article.content}</div>
+            <div id="cont" className="content">
+              {Article.content}
+            </div>
           </ArticleContent>
           <SendSummary>
             <div className="introdce">
