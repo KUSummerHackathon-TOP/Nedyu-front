@@ -38,8 +38,13 @@ const Banner = () => {
       const token = res.data.token;
       window.localStorage.setItem("token", token);
     } catch (err) {
+      alert(err.response.data.errors);
       console.log(err);
     }
+  };
+
+  const moveFocus = (e: any, next: any) => {
+    if (e.key === "Enter") document.getElementById(next)?.focus();
   };
   return (
     <Wrapper>
@@ -58,18 +63,24 @@ const Banner = () => {
       ) : (
         <div>
           <Input
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => moveFocus(e, "pw")}
             placeholder="이메일 주소"
             style={{ bottom: "100px" }}
           />
           <Input
+            id="pw"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => moveFocus(e, "signin-btn")}
             placeholder="비밀번호"
             style={{ bottom: "50px" }}
           />
-          <LoginButton onClick={onSubmit}>로그인</LoginButton>
+          <LoginButton id="signin-btn" onClick={onSubmit}>
+            로그인
+          </LoginButton>
           <Additional>다양한 뉴스 아티클을 확인하고 싶다면?</Additional>
           <SignUpButton
             onClick={() => {
