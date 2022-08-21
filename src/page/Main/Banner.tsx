@@ -38,7 +38,7 @@ const Banner = () => {
       const token = res.data.token;
       window.localStorage.setItem("token", token);
     } catch (err) {
-      alert(err.response.data.errors);
+      alert(Object.values(err.response.data.errors));
       console.log(err);
     }
   };
