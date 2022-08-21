@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "https://8d58-1-220-133-58.jp.ngrok.io",
+      "/api": "https://8d58-1-220-133-58.jp.ngrok.io/",
     },
   },
 });

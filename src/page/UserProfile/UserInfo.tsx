@@ -1,17 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ArticleSlider from "../Main/ArticleSlider";
+import axios from "axios";
+import userDTStore from "../../store/userStore";
 
 const UserInfo = () => {
+  const { user } = userDTStore();
+  const [exp, setExp] = useState<number>();
+  const [probNum, setProbNum] = useState<number>();
+
+  const name = user?.firstName + " " + user?.lastName;
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    axios
+      .get("/api/v1/users/getUserInfo", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          console.log("res.data", res.data);
+          setExp(res.data.exp);
+          setProbNum(res.data.prob_num);
+        }
+      })
+      .catch((e) => {
+        console.log("e", e);
+      });
+  }, []);
+
   return (
     <Wrapper>
       <Content>오늘은 어떤 뉴스를 읽을까요? </Content>
-      <UserName>Nedyu12</UserName>
-      <UserEmail>NN@gmail.com</UserEmail>
+      <UserName>{name} </UserName>
+      <UserEmail>{user?.email}</UserEmail>
       <UserHistory>
-        <span className="name">Nedyu12</span>
-        <span className="solved">87</span>
-        <span className="exp">4423</span>
+        <span className="name">{name}</span>
+        <span className="solved">{probNum}</span>
+        <span className="exp">{exp}</span>
       </UserHistory>
     </Wrapper>
   );

@@ -4,6 +4,7 @@ import { Carousel } from "@mantine/carousel";
 import { articleT } from "../../types/type";
 import thumbnail from "../../assets/img/thumbnail.jpeg";
 import { useNavigate } from "react-router-dom";
+import userDTStore from "../../store/userStore";
 // ! axios로 변경
 const MockData: articleT[] = [
   {
@@ -39,6 +40,9 @@ const MockData: articleT[] = [
 
 const ArticleSlider = () => {
   const navigate = useNavigate();
+  const { user } = userDTStore();
+
+  const name = user?.firstName + " " + user?.lastName;
 
   const onClickArticle = (id: string) => {
     navigate(`/articledetail/${id}`);
@@ -46,7 +50,7 @@ const ArticleSlider = () => {
   return (
     <Wrapper>
       <Title>
-        <span style={{ fontWeight: 700 }}>Nedyu12</span>님이 요약한 뉴스들
+        <span style={{ fontWeight: 700 }}>{name}</span>님이 요약한 뉴스들
       </Title>
       <Carousel
         withIndicators
@@ -90,6 +94,7 @@ const Wrapper = styled.div`
   left: 120px;
   top: 600px;
   padding-bottom: 100px;
+  width: 100vw;
 `;
 
 const Title = styled.div`

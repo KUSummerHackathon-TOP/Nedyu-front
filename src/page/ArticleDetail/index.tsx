@@ -126,7 +126,7 @@ const ArticleDetail = () => {
         },
       })
       .then((res) => {
-        console.log("res", res.data);
+        // console.log("res", res.data);
         setArticleInfo(res.data);
       })
       .catch((e) => {
@@ -155,6 +155,7 @@ const ArticleDetail = () => {
     let score: number = 80;
     console.log(id, content);
     console.log(user);
+    const token = window.localStorage.getItem("token");
 
     axios
       .post(
@@ -165,7 +166,7 @@ const ArticleDetail = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
@@ -199,7 +200,10 @@ const ArticleDetail = () => {
             <Header />
             <ArticleHeader isShow={scroll} title={articleInfo?.title} />
             <ArticleContent>
-              <HeadLine isShow={!scroll} url={articleInfo?.thumbnail}>
+              <HeadLine
+                isShow={!scroll}
+                url={`data:image/png;base64, ${articleInfo.thumbnail}`}
+              >
                 <div className="idd">{params.id}</div>
                 <div className="company">{articleInfo?.companyName}</div>
                 <div className="title">{articleInfo?.title}</div>

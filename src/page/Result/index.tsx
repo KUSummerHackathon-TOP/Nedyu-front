@@ -15,7 +15,7 @@ const Result = () => {
   const location: any = useLocation();
   const { score } = location.state;
   const { user } = userDTStore();
-  const accessToken = user?.token;
+  const accessToken = window.localStorage.getItem("token");
   const { similarArticleList, setSimilarArticleList } = useArticleStore();
   const [bottomBarContent, setBottomBarContent] = useState<string>(
     "내 생각에 기사에서 누구나 꿈을 이룰 수 있다고 말하고 싶은 것 같아!"

@@ -55,7 +55,6 @@ const ArticleSlider = () => {
         >
           {newslist?.map((article, idx) => {
             if (idx > 8) return;
-            console.log("article", article);
             return (
               <>
                 <Carousel.Slide>
