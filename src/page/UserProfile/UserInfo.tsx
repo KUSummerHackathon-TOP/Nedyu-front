@@ -4,12 +4,16 @@ import ArticleSlider from "../Main/ArticleSlider";
 import axios from "axios";
 import userDTStore from "../../store/userStore";
 
-const UserInfo = () => {
+interface Props {
+  name: string;
+  setName: (name: string) => void;
+}
+
+const UserInfo = ({ name, setName }: Props) => {
   const { user } = userDTStore();
+  //const [name, setName] = useState<string>();
   const [exp, setExp] = useState<number>();
   const [probNum, setProbNum] = useState<number>();
-
-  const name = user?.firstName + " " + user?.lastName;
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -24,6 +28,7 @@ const UserInfo = () => {
           console.log("res.data", res.data);
           setExp(res.data.exp);
           setProbNum(res.data.prob_num);
+          setName(res.data.firstName + " " + res.data.lastName);
         }
       })
       .catch((e) => {
@@ -35,7 +40,7 @@ const UserInfo = () => {
     <Wrapper>
       <Content>오늘은 어떤 뉴스를 읽을까요? </Content>
       <UserName>{name} </UserName>
-      <UserEmail>{user?.email}</UserEmail>
+      <UserEmail>{user?.email && user?.email}</UserEmail>
       <UserHistory>
         <span className="name">{name}</span>
         <span className="solved">{probNum}</span>

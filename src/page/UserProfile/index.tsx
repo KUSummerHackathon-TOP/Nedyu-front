@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../../common/header";
 import UserInfo from "./UserInfo";
 import ArticleSlider from "./ArticleSlider";
 
 const UserProfile = () => {
+  const [name, setName] = useState<string>("");
   return (
     <>
       <Header />
-      <UserInfo />
-      <ArticleSlider />
+      <UserInfo name={name} setName={(name: string) => setName(name)} />
+      <ArticleSlider name={name} />
     </>
   );
 };

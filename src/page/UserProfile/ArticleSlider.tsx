@@ -8,11 +8,10 @@ import userDTStore from "../../store/userStore";
 import useArticleStore from "../../store/articleStore";
 import axios from "axios";
 
-const ArticleSlider = () => {
+const ArticleSlider = ({ name }: { name: string }) => {
   const navigate = useNavigate();
   const { user } = userDTStore();
   const [articleList, setArticleList] = useState<[]>([]);
-  const name = user?.firstName + " " + user?.lastName;
 
   const onClickArticle = (id: string) => {
     navigate(`/articledetail/${id}`);
