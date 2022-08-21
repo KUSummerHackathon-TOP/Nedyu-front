@@ -209,7 +209,10 @@ const ArticleDetail = () => {
             <Header />
             <ArticleHeader isShow={scroll} title={articleInfo?.title} />
             <ArticleContent>
-              <HeadLine isShow={!scroll} url={articleInfo?.thumbnail}>
+              <HeadLine
+                isShow={!scroll}
+                url={`data:image/png;base64, ${articleInfo.thumbnail}`}
+              >
                 <div className="idd">{params.id}</div>
                 <div className="company">{articleInfo?.companyName}</div>
                 <div className="title">{articleInfo?.title}</div>
