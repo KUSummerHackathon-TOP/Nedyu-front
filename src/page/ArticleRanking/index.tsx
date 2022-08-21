@@ -25,17 +25,7 @@ const ArticleRanking = () => {
   const [articleid, setArticleid] = useState(id);
   const { user } = userDTStore();
   const accessToken = window.localStorage.getItem("token");
-  const [ranker, setRanker] = useState([
-    { name: "Nedyu1", score: 98 },
-    { name: "Nedyu2", score: 97 },
-    { name: "Nedyu3", score: 96 },
-    { name: "Nedyu4", score: 95 },
-    { name: "Nedyu5", score: 94 },
-    { name: "Nedyu6", score: 93 },
-    { name: "Nedyu7", score: 92 },
-    { name: "Nedyu8", score: 91 },
-    { name: "Nedyu9", score: 90 },
-  ]);
+  const [ranker, setRanker] = useState([]);
   const getRankings = () => {
     axios
       .get(`/api/v1/article/rank/${articleid}`, {

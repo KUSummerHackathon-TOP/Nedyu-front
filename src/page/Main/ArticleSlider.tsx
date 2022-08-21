@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Carousel } from "@mantine/carousel";
-import thumbnail from "../../assets/img/thumbnail.jpeg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import userDTStore from "../../store/userStore";
@@ -23,6 +22,7 @@ const ArticleSlider = () => {
         },
       })
       .then((res) => {
+        console.log("res", res.data);
         setNewslist(res.data);
       })
       .catch((e) => {
@@ -55,6 +55,7 @@ const ArticleSlider = () => {
         >
           {newslist?.map((article, idx) => {
             if (idx > 8) return;
+            console.log("article", article);
             return (
               <>
                 <Carousel.Slide>

@@ -64,7 +64,7 @@ const Result = () => {
       <QuestionMark>?</QuestionMark>
       <ScoreWrapperTop />
       <ScoreWrapperBottom />
-      <Score>{score}%</Score>
+      <Score>{Math.floor(score * 100)}%</Score>
       <ChickenCharacter src={chicken} />
       <BottomBar
         content={bottomBarContent}
