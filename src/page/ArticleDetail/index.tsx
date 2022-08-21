@@ -204,7 +204,7 @@ const ArticleDetail = () => {
                 isShow={!scroll}
                 url={`data:image/png;base64, ${articleInfo.thumbnail}`}
               >
-                <div className="idd">{params.id}</div>
+                {/*<div className="idd">{params.id}</div>*/}
                 <div className="company">{articleInfo?.companyName}</div>
                 <div className="title">{articleInfo?.title}</div>
               </HeadLine>

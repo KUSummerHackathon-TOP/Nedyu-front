@@ -39,7 +39,7 @@ const UserInfo = () => {
       <UserHistory>
         <span className="name">{name}</span>
         <span className="solved">{probNum}</span>
-        <span className="exp">{exp}</span>
+        <span className="exp">{exp?.toFixed()}</span>
       </UserHistory>
     </Wrapper>
   );

@@ -1,88 +1,90 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Carousel } from "@mantine/carousel";
 import { articleT } from "../../types/type";
 import thumbnail from "../../assets/img/thumbnail.jpeg";
 import { useNavigate } from "react-router-dom";
 import userDTStore from "../../store/userStore";
-// ! axios로 변경
-const MockData: articleT[] = [
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    companyName: "BBC News",
-    thumbnail: thumbnail,
-    articleShortContent:
-      "Orange Prize winner Andrea Levy has seen her book Small Island win the Whitbread Novel of the Year Award.She is now favourite to win the overall prize after beating Booker winner Alan Hollinghurst's The Line of Beauty.",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    companyName: "BBC News",
-    thumbnail: thumbnail,
-    articleShortContent: "",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    companyName: "BBC News",
-    thumbnail: thumbnail,
-    articleShortContent: "",
-  },
-  {
-    id: "1",
-    title: "Levy takes Whitebread novel prize",
-    companyName: "BBC News",
-    thumbnail: thumbnail,
-    articleShortContent: "",
-  },
-];
+import useArticleStore from "../../store/articleStore";
+import axios from "axios";
 
 const ArticleSlider = () => {
   const navigate = useNavigate();
   const { user } = userDTStore();
-
+  const [articleList, setArticleList] = useState<[]>([]);
   const name = user?.firstName + " " + user?.lastName;
 
   const onClickArticle = (id: string) => {
     navigate(`/articledetail/${id}`);
   };
+
+  const loadData = async () => {
+    const token = window.localStorage.getItem("token");
+    await axios
+      .get("/api/v1/article/sumsol", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("res", res.data);
+        setArticleList(res.data);
+      })
+      .catch((e) => {
+        console.log("e", e);
+      });
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    console.log("articleList", articleList);
+  }, [articleList]);
   return (
     <Wrapper>
       <Title>
         <span style={{ fontWeight: 700 }}>{name}</span>님이 요약한 뉴스들
       </Title>
-      <Carousel
-        withIndicators
-        sx={{ maxWidth: "100%" }}
-        slideSize="30%"
-        //slideGap="md"
-        loop
-        align="start"
-        mx="auto"
-        slidesToScroll={3}
-        controlsOffset="xl"
-      >
-        {MockData.map((aritcle: articleT) => {
-          return (
-            <>
-              <Carousel.Slide>
-                <ArticleItem
-                  onClick={() => {
-                    onClickArticle(aritcle.id);
-                  }}
-                  url={aritcle.thumbnail}
-                >
-                  <div className="overlay" />
-                  <span className="title">{aritcle.title}</span>
-                  <span className="company">{aritcle.companyName}</span>
-                  <span className="content">{aritcle.articleShortContent}</span>
-                </ArticleItem>
-              </Carousel.Slide>
-            </>
-          );
-        })}
-      </Carousel>
+      {articleList?.length > 0 && (
+        <Carousel
+          withIndicators
+          sx={{ maxWidth: "100%" }}
+          slideSize="30%"
+          //slideGap="md"
+          loop
+          align="start"
+          mx="auto"
+          slidesToScroll={3}
+          controlsOffset="xl"
+        >
+          {articleList?.map((aritcle: any) => {
+            console.log("articel", aritcle);
+            return (
+              <>
+                <Carousel.Slide>
+                  <ArticleItem
+                    onClick={() => {
+                      onClickArticle(String(aritcle.article_id.id));
+                    }}
+                    url={`data:image/png;base64, ${aritcle.article_id.thumbnail}`}
+                  >
+                    <div className="overlay" />
+                    <span className="title">{aritcle.article_id.title}</span>
+                    <span className="company">
+                      {aritcle.article_id.companyName}
+                    </span>
+                    <span className="content">
+                      {aritcle.article_id.content}
+                    </span>
+                  </ArticleItem>
+                </Carousel.Slide>
+              </>
+            );
+          })}
+        </Carousel>
+      )}
     </Wrapper>
   );
 };
