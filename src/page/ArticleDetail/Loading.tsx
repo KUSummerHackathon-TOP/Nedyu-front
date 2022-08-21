@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import eggChicken from "../../assets/egg_chicken.svg";
-import eggChicken2 from "../../assets/egg_chicken2.svg";
+import eggChicken from "../../assets/img/egg_chicken.svg";
+import eggChicken2 from "../../assets/img/egg_chicken2.svg";
 
 const Loading = () => {
   const srcRef = useRef<string>(eggChicken);

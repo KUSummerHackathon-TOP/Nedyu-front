@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../assets/logo.svg";
-import bar_chart from "../assets/bar_chart.svg";
-import account_circle from "../assets/account_circle.svg";
+import logo from "../assets/img/logo.svg";
+import bar_chart from "../assets/img/bar_chart.svg";
+import account_circle from "../assets/img/account_circle.svg";
 import { useNavigate } from "react-router-dom";
 import userDTStore from "../store/userStore";
 
