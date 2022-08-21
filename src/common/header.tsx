@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo_black from "../assets/logo_black.svg";
-import bar_chart from "../assets/bar_chart.svg";
-import account_circle from "../assets/account_circle.svg";
-import smile from "../assets/smile.svg";
+import logo_black from "../assets/img/logo_black.svg";
+import bar_chart from "../assets/img/bar_chart.svg";
+import account_circle from "../assets/img/account_circle.svg";
+import smile from "../assets/img/smile.svg";
 import userDTStore from "../store/userStore";
 import { useNavigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import nest from "../../assets/nest.svg";
+import nest from "../../assets/img/nest.svg";
 import { useNavigate } from "react-router-dom";
 import userDTStore from "../../store/userStore";
 import axios from "axios";

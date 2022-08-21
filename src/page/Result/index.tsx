@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { keyframes } from "@emotion/react";
 import styled from "styled-components";
-import chicken from "../../assets/chicken.svg";
+import chicken from "../../assets/img/chicken.svg";
 import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import BottomBar from "../../common/BottomBar";

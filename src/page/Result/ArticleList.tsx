@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import close from "../../assets/close.svg";
+import close from "../../assets/img/close.svg";
 import { articleT } from "../../types/type";
-import left_gray from "../../assets/left_gray.svg";
-import left_white from "../../assets/left_white.svg";
-import right_gray from "../../assets/right_gray.svg";
-import right_white from "../../assets/right_white.svg";
+import left_gray from "../../assets/img/left_gray.svg";
+import left_white from "../../assets/img/left_white.svg";
+import right_gray from "../../assets/img/right_gray.svg";
+import right_white from "../../assets/img/right_white.svg";
 
 interface Props {
   articleList: articleT[];

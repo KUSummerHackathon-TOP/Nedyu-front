@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Carousel } from "@mantine/carousel";
-import { articleT, newsT } from "../../types/type";
-import thumbnail from "../../assets/thumbnail.jpeg";
+import { articleT } from "../../types/type";
+import thumbnail from "../../assets/img/thumbnail.jpeg";
 import { useNavigate } from "react-router-dom";
 import userDTStore from "../../store/userStore";
 import useArticleStore from "../../store/articleStore";
