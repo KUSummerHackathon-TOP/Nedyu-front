@@ -11,10 +11,11 @@ const GlobalRanking = () => {
   const { user } = userDTStore();
   const [rankers, setRankers] = useState<globalRankerT[]>();
   const getRankings = () => {
+    const token = window.localStorage.getItem("token");
     axios
       .get("/api/v1/users/topkuser", {
         headers: {
-          Authorization: `Bearer ${user?.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

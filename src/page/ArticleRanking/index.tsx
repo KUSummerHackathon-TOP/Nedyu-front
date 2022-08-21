@@ -24,7 +24,7 @@ const ArticleRanking = () => {
   const id = Number(params.id);
   const [articleid, setArticleid] = useState(id);
   const { user } = userDTStore();
-  const accessToken = user?.token;
+  const accessToken = window.localStorage.getItem("token");
   const [ranker, setRanker] = useState([
     { name: "Nedyu1", score: 98 },
     { name: "Nedyu2", score: 97 },

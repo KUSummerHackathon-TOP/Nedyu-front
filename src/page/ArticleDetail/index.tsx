@@ -129,6 +129,7 @@ const ArticleDetail = () => {
     let score: number = 80;
     console.log(id, content);
     console.log(user);
+    const token = window.localStorage.getItem("token");
 
     axios
       .post(
@@ -139,7 +140,7 @@ const ArticleDetail = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )

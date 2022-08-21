@@ -15,7 +15,8 @@ const RankingHeader = () => {
   };
   const goLogin = () => {
     console.log("click");
-    if (user?.token !== undefined) {
+    const token = window.localStorage.getItem("token");
+    if (token) {
       navigate("/profile");
     } else {
       navigate("/signin");
