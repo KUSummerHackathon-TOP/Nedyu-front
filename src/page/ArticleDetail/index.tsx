@@ -11,12 +11,29 @@ import axios from "axios";
 
 import eggChicken from "../../assets/egg_chicken.svg";
 import eggChicken2 from "../../assets/egg_chicken2.svg";
+import { detailArticleT } from "../../types/type";
 
 const Loading = () => {
   const srcRef = useRef<string>(eggChicken);
   const [src, setSrc] = useState(srcRef.current);
+  const params = useParams();
+  const id = params.id;
+  const accessToken = window.localStorage.getItem("token");
 
+  const loadArticle = () => {
+    axios
+      .get(`/api/v1/article/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
+    loadArticle();
     srcRef.current = src;
   }, [src]);
 
@@ -106,8 +123,27 @@ const ArticleDetail = () => {
   const navigate = useNavigate();
   const [summary, setSummary] = useState<string>("");
   const { user } = userDTStore();
+  const accessToken = window.localStorage.getItem("token");
 
+  const [articleInfo, setArticleInfo] = useState<detailArticleT>();
+
+  const loadArticle = async () => {
+    axios
+      .get(`/api/v1/article/${params.id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        console.log("res", res.data);
+        setArticleInfo(res.data);
+      })
+      .catch((e) => {
+        console.log("e", e);
+      });
+  };
   useEffect(() => {
+    loadArticle();
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll); //clean up
@@ -125,7 +161,6 @@ const ArticleDetail = () => {
   };
 
   const summarySubmit = (id: number, content: string) => {
-    // ! type 변경
     let score: number = 80;
     console.log(id, content);
     console.log(user);
@@ -169,41 +204,42 @@ const ArticleDetail = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <Wrapper>
-          <Header />
-          <ArticleHeader isShow={scroll} title={Article.title} />
-          <ArticleContent>
-            <HeadLine isShow={!scroll} url={Article.thumbnail}>
-              <div className="idd">{params.id}</div>
-              <div className="company">{Article.company}</div>
-              <div className="title">{Article.title}</div>
-              <div className="date">{Article.date}</div>
-            </HeadLine>
-            <div id="cont" className="content">
-              {Article.content}
-            </div>
-          </ArticleContent>
-          <SendSummary>
-            <div className="introdce">
-              뉴스가 우리에게 무엇을 말하고 있나요? 우리 함께 글을 요약해
-              봅시다!
-            </div>
-            <div className="summaryWrapper">
-              <textarea
-                value={summary}
-                onChange={(e) => setSummary(e.target.value)}
-                className="summarySubmit"
-                rows={10}
-                placeholder="나만의 생각을 표현해봐!"
-              ></textarea>
-              <SubmitBtn
-                onClick={() => summarySubmit(Number(params.id), summary)}
-              >
-                <div className="subimt">생각 전송</div>
-              </SubmitBtn>
-            </div>
-          </SendSummary>
-        </Wrapper>
+        articleInfo && (
+          <Wrapper>
+            <Header />
+            <ArticleHeader isShow={scroll} title={articleInfo?.title} />
+            <ArticleContent>
+              <HeadLine isShow={!scroll} url={articleInfo?.thumbnail}>
+                <div className="idd">{params.id}</div>
+                <div className="company">{articleInfo?.companyName}</div>
+                <div className="title">{articleInfo?.title}</div>
+              </HeadLine>
+              <div id="cont" className="content">
+                {articleInfo?.content}
+              </div>
+            </ArticleContent>
+            <SendSummary>
+              <div className="introdce">
+                뉴스가 우리에게 무엇을 말하고 있나요? 우리 함께 글을 요약해
+                봅시다!
+              </div>
+              <div className="summaryWrapper">
+                <textarea
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  className="summarySubmit"
+                  rows={10}
+                  placeholder="나만의 생각을 표현해봐!"
+                ></textarea>
+                <SubmitBtn
+                  onClick={() => summarySubmit(Number(params.id), summary)}
+                >
+                  <div className="subimt">생각 전송</div>
+                </SubmitBtn>
+              </div>
+            </SendSummary>
+          </Wrapper>
+        )
       )}
     </>
   );

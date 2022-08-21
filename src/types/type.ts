@@ -8,14 +8,22 @@ export type articleT = {
 };
 
 export type newsT = {
-  id: string;
+  id: number;
   title: string;
   content: string;
   thumbnail: string;
   reportName?: string;
   companyName?: string;
 };
-
+export type detailArticleT = {
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  reportName?: string;
+  categoryName?: string;
+  companyName?: string;
+};
 export type articleRankerT = {
   name: string;
   score: number;

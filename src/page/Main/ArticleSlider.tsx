@@ -62,7 +62,7 @@ const ArticleSlider = () => {
                 <Carousel.Slide>
                   <ArticleItem
                     onClick={() => {
-                      onClickArticle(Number(article.id));
+                      onClickArticle(article.id);
                     }}
                     url={`data:image/png;base64, ${article.thumbnail}`}
                   >
